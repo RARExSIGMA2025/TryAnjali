@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form & Image Generator</title>
+    <title>Anjali Group India - Investment Portal</title>
     <!-- Tailwind CSS CDN for easy styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -13,7 +13,7 @@
             background-color: #f3f4f6; /* Light gray background */
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Align to top for scrolling if content is long */
             min-height: 100vh;
             margin: 0;
             padding: 20px;
@@ -21,20 +21,40 @@
         }
 
         .container {
-            background-color: #ffffff; /* White background for the card */
+            background-color: #ffffff; /* White background for the main card */
             padding: 32px;
-            border-radius: 12px; /* More rounded corners */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 600px; /* Slightly wider to accommodate more fields */
+            max-width: 700px; /* Wider for professional layout */
             text-align: center;
-            border: 1px solid #e5e7eb; /* Light border */
+            border: 1px solid #e5e7eb;
         }
 
-        h1, h2 {
-            color: #1f2937; /* Darker text for headings */
+        h1 {
+            color: #1f2937;
             margin-bottom: 24px;
-            font-weight: 700; /* Bold headings */
+            font-weight: 700;
+            font-size: 2.25rem; /* Larger main title */
+        }
+
+        .section-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            padding: 24px;
+            margin-bottom: 20px;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-card h2 {
+            font-size: 1.5rem; /* Section titles */
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #10b981; /* Green line under section title */
         }
 
         .form-grid {
@@ -47,43 +67,46 @@
             .form-grid {
                 grid-template-columns: 1fr 1fr; /* Two columns for larger screens */
             }
-        }
-
-        .form-group {
-            text-align: left;
+            .form-grid.full-width > div { /* For single column fields like address */
+                grid-column: span 2;
+            }
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #4b5563; /* Medium gray text */
+            margin-bottom: 6px;
+            color: #4b5563;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         input[type="text"],
+        input[type="email"],
         input[type="number"],
+        select,
         textarea {
-            width: 100%; /* Full width */
-            padding: 12px;
-            border: 1px solid #d1d5db; /* Light gray border */
-            border-radius: 8px; /* Rounded input fields */
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
             box-sizing: border-box;
-            font-size: 1rem;
-            color: #374151; /* Darker text in inputs */
+            font-size: 0.95rem;
+            color: #374151;
             transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
 
         input[type="text"]:focus,
+        input[type="email"]:focus,
         input[type="number"]:focus,
+        select:focus,
         textarea:focus {
             outline: none;
-            border-color: #3b82f6; /* Blue border on focus */
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* Light blue shadow on focus */
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
         }
 
-        button {
-            background-color: #3b82f6; /* Blue button */
+        button[type="submit"] {
+            background-color: #10b981; /* Green submit button */
             color: white;
             padding: 12px 28px;
             border: none;
@@ -91,23 +114,23 @@
             cursor: pointer;
             font-size: 1.05rem;
             font-weight: 600;
-            margin-top: 16px;
+            margin-top: 24px;
             transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
         }
 
-        button:hover {
-            background-color: #2563eb; /* Darker blue on hover */
-            transform: translateY(-1px); /* Slight lift effect */
+        button[type="submit"]:hover {
+            background-color: #059669; /* Darker green on hover */
+            transform: translateY(-1px);
         }
 
-        button:active {
+        button[type="submit"]:active {
             transform: translateY(0);
         }
 
         #imageResult {
             margin-top: 32px;
             padding-top: 24px;
-            border-top: 1px solid #e5e7eb; /* Light border at the top */
+            border-top: 1px solid #e5e7eb;
         }
 
         #generatedImage {
@@ -121,50 +144,105 @@
 
         /* Styles for the hidden div that will be converted to an image */
         #imageSource {
-            background-color: #e0f2fe; /* Light blue background for the image content */
+            background-color: #ffffff; /* White background for the image content */
             padding: 40px;
             border-radius: 12px;
-            text-align: left; /* Align text left within the image */
-            color: #1e3a8a; /* Dark blue text */
+            text-align: left;
+            color: #1f2937;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Align content to the top */
-            align-items: flex-start; /* Align content to the left */
-            min-height: 450px; /* Ensure a decent size for the image */
+            justify-content: flex-start;
+            align-items: flex-start;
+            min-height: 800px; /* Ensure a decent size for the image */
             box-sizing: border-box;
-            /* Initially hidden, will be made visible briefly for html2canvas */
             position: absolute;
             left: -9999px;
             top: -9999px;
-            width: 700px; /* Fixed width for consistent image size */
+            width: 800px; /* Fixed width for consistent image size */
             height: auto; /* Height will adjust based on content */
-            overflow: hidden; /* Hide overflow if text is too long */
-            font-size: 1.2rem;
-            line-height: 1.6;
+            overflow: hidden;
+            font-size: 1rem; /* Base font size for image content */
+            line-height: 1.5;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Shadow for the image itself */
+            border: 1px solid #e5e7eb;
         }
 
-        #imageSource h3 {
-            font-size: 2.2rem; /* Larger title in the image */
-            font-weight: 700;
-            margin-bottom: 25px;
-            line-height: 1.2;
-            color: #0c4a6e; /* Even darker blue for title */
+        #imageSource .image-header {
+            width: 100%;
             text-align: center;
-            width: 100%;
+            margin-bottom: 30px;
         }
 
-        #imageSource .image-field {
+        #imageSource .image-header h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0c4a6e;
             margin-bottom: 10px;
+        }
+
+        #imageSource .image-header p {
+            font-size: 1.2rem;
+            color: #4b5563;
+        }
+
+        #imageSource .image-section-output {
             width: 100%;
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #f9fafb; /* Light background for sections in image */
         }
 
-        #imageSource .image-field span {
+        #imageSource .image-section-output h4 {
+            font-size: 1.3rem;
             font-weight: 600;
-            color: #155e75;
-            margin-right: 8px;
+            color: #1f2937;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #d1d5db;
         }
 
-        /* Responsive adjustments */
+        #imageSource .image-field-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            flex-wrap: wrap; /* Allow wrapping on small image sizes */
+        }
+
+        #imageSource .image-field-row .label-col {
+            font-weight: 500;
+            color: #4b5563;
+            flex-basis: 40%; /* Adjust label width */
+            text-align: left;
+            padding-right: 10px;
+        }
+
+        #imageSource .image-field-row .value-col {
+            font-weight: 600;
+            color: #1f2937;
+            flex-basis: 60%; /* Adjust value width */
+            text-align: right;
+        }
+
+        /* Specific adjustments for full-width fields in image */
+        #imageSource .image-field-full-width {
+            margin-bottom: 8px;
+        }
+        #imageSource .image-field-full-width .label-col {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        #imageSource .image-field-full-width .value-col {
+            width: 100%;
+            text-align: left;
+            background-color: #e5e7eb;
+            padding: 8px 12px;
+            border-radius: 4px;
+            word-wrap: break-word; /* Ensure long addresses wrap */
+        }
+
+        /* Responsive adjustments for form */
         @media (max-width: 640px) {
             .container {
                 padding: 24px;
@@ -175,21 +253,58 @@
                 font-size: 1.8rem;
             }
 
-            button {
+            .section-card {
+                padding: 16px;
+            }
+
+            .section-card h2 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+
+            button[type="submit"] {
                 padding: 10px 20px;
                 font-size: 1rem;
             }
 
+            /* Responsive adjustments for imageSource (generated image) */
             #imageSource {
-                width: 350px; /* Smaller fixed width for mobile image */
-                min-height: 300px; /* Adjust height */
-                padding: 20px;
-                font-size: 0.9rem;
+                width: 380px; /* Smaller fixed width for mobile image */
+                min-height: 500px;
+                padding: 25px;
+                font-size: 0.85rem;
             }
 
-            #imageSource h3 {
-                font-size: 1.5rem;
-                margin-bottom: 15px;
+            #imageSource .image-header h3 {
+                font-size: 1.8rem;
+            }
+
+            #imageSource .image-header p {
+                font-size: 1rem;
+            }
+
+            #imageSource .image-section-output {
+                padding: 15px;
+            }
+
+            #imageSource .image-section-output h4 {
+                font-size: 1.1rem;
+            }
+
+            #imageSource .image-field-row {
+                flex-direction: column; /* Stack label and value on small image */
+                align-items: flex-start;
+            }
+
+            #imageSource .image-field-row .label-col,
+            #imageSource .image-field-row .value-col {
+                flex-basis: auto;
+                width: 100%;
+                text-align: left;
+                padding-right: 0;
+            }
+            #imageSource .image-field-row .value-col {
+                margin-top: 4px; /* Space between stacked label and value */
             }
         }
     </style>
@@ -199,78 +314,153 @@
         <div class="flex justify-end mb-4">
             <button id="langToggle" class="bg-gray-200 text-gray-800 hover:bg-gray-300 px-4 py-2 rounded-md text-sm">Switch to Hindi</button>
         </div>
-        <h1 id="mainTitle" class="text-3xl font-bold">Fill Your Details</h1>
+        <h1 id="mainTitle" class="text-4xl font-extrabold text-blue-800">Anjali Group India - Investment Portal</h1>
 
         <form id="dataForm">
-            <div class="form-grid">
-                <div class="form-group">
-                    <label id="labelName" for="name">Name:</label>
-                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelGuardian" for="guardian">Guardian:</label>
-                    <input type="text" id="guardian" name="guardian" placeholder="Enter guardian's name" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelMobile" for="mobile">Mobile:</label>
-                    <input type="text" id="mobile" name="mobile" placeholder="Enter mobile number" required pattern="[0-9]{10}" title="Please enter a 10-digit mobile number">
-                </div>
-                <div class="form-group">
-                    <label id="labelAadhar" for="aadhar">Aadhar:</label>
-                    <input type="text" id="aadhar" name="aadhar" placeholder="Enter Aadhar number" required pattern="[0-9]{12}" title="Please enter a 12-digit Aadhar number">
-                </div>
-                <div class="form-group">
-                    <label id="labelPAN" for="pan">PAN:</label>
-                    <input type="text" id="pan" name="pan" placeholder="Enter PAN number" required pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" title="Please enter a valid 10-character PAN (e.g., ABCDE1234F)">
-                </div>
-                <div class="form-group">
-                    <label id="labelNominee" for="nominee">Nominee:</label>
-                    <input type="text" id="nominee" name="nominee" placeholder="Enter nominee's name" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelRelation" for="relation">Relation:</label>
-                    <input type="text" id="relation" name="relation" placeholder="Enter relation with nominee" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelProject" for="project">Project:</label>
-                    <input type="text" id="project" name="project" placeholder="Enter project name" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelPayment" for="payment">Payment:</label>
-                    <input type="text" id="payment" name="payment" placeholder="Enter payment details" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelSponsor" for="sponsor">Sponsor:</label>
-                    <input type="text" id="sponsor" name="sponsor" placeholder="Enter sponsor's name" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelTeamLeaders" for="teamLeaders">Team Leaders:</label>
-                    <input type="text" id="teamLeaders" name="teamLeaders" placeholder="Enter team leaders' names" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelAccountNo" for="accountNo">Account Number:</label>
-                    <input type="text" id="accountNo" name="accountNo" placeholder="Enter account number" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelIFSCCode" for="ifscCode">IFSC Code:</label>
-                    <input type="text" id="ifscCode" name="ifscCode" placeholder="Enter IFSC code" required pattern="[A-Z]{4}0[A-Z0-9]{6}" title="Please enter a valid IFSC code (e.g., ABCD0123456)">
-                </div>
-                <div class="form-group">
-                    <label id="labelBankName" for="bankName">Bank Name:</label>
-                    <input type="text" id="bankName" name="bankName" placeholder="Enter bank name" required>
-                </div>
-                <div class="form-group">
-                    <label id="labelBranch" for="branch">Branch:</label>
-                    <input type="text" id="branch" name="branch" placeholder="Enter branch name" required>
+            <!-- Personal Details Section -->
+            <div class="section-card">
+                <h2 id="sectionTitlePersonal">Personal Details</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label id="labelFullName" for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="e.g., John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelMobileNumber" for="mobileNumber">Mobile Number:</label>
+                        <input type="text" id="mobileNumber" name="mobileNumber" placeholder="e.g., 9876543210" required pattern="[0-9]{10}" title="Please enter a 10-digit mobile number">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelEmailAddress" for="emailAddress">Email Address:</label>
+                        <input type="email" id="emailAddress" name="emailAddress" placeholder="e.g., example@domain.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelAadharCardNumber" for="aadharCardNumber">Aadhar Card Number:</label>
+                        <input type="text" id="aadharCardNumber" name="aadharCardNumber" placeholder="e.g., 123456789012" required pattern="[0-9]{12}" title="Please enter a 12-digit Aadhar number">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelPANCardNumber" for="panCardNumber">PAN Card Number:</label>
+                        <input type="text" id="panCardNumber" name="panCardNumber" placeholder="e.g., ABCDE1234F" required pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" title="Please enter a valid 10-character PAN (e.g., ABCDE1234F)">
+                    </div>
                 </div>
             </div>
-            <button id="submitBtn" type="submit">Generate Image</button>
+
+            <!-- Investment Details Section -->
+            <div class="section-card">
+                <h2 id="sectionTitleInvestment">Investment Details</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label id="labelInvestmentCategory" for="investmentCategory">Investment Category:</label>
+                        <select id="investmentCategory" name="investmentCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="equity">Equity</option>
+                            <option value="debt">Debt</option>
+                            <option value="real_estate">Real Estate</option>
+                            <option value="mutual_funds">Mutual Funds</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelInvestmentPlan" for="investmentPlan">Investment Plan:</label>
+                        <select id="investmentPlan" name="investmentPlan" required>
+                            <option value="">Select Plan</option>
+                            <option value="plan_a">Plan A</option>
+                            <option value="plan_b">Plan B</option>
+                            <option value="plan_c">Plan C</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelQuantity" for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelTotalInvestmentAmount" for="totalInvestmentAmount">Total Investment Amount (₹):</label>
+                        <input type="number" id="totalInvestmentAmount" name="totalInvestmentAmount" placeholder="0" min="0" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Details Section -->
+            <div class="section-card">
+                <h2 id="sectionTitlePayment">Payment Details</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label id="labelPaymentMode" for="paymentMode">Payment Mode:</label>
+                        <select id="paymentMode" name="paymentMode" required>
+                            <option value="">Select Payment Mode</option>
+                            <option value="online">Online Transfer</option>
+                            <option value="cheque">Cheque</option>
+                            <option value="cash">Cash</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelReferralSponsorName" for="referralSponsorName">Referral/Sponsor Name:</label>
+                        <input type="text" id="referralSponsorName" name="referralSponsorName" placeholder="e.g., Ram Niwas Gupta" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Address Details Section -->
+            <div class="section-card">
+                <h2 id="sectionTitleAddress">Address Details</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label id="labelState" for="state">State:</label>
+                        <select id="state" name="state" required>
+                            <option value="">Select State</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="maharashtra">Maharashtra</option>
+                            <option value="up">Uttar Pradesh</option>
+                            <option value="karnataka">Karnataka</option>
+                            <option value="tamil_nadu">Tamil Nadu</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelDistrict" for="district">District:</label>
+                        <select id="district" name="district" required>
+                            <option value="">Select District</option>
+                            <option value="new_delhi">New Delhi</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="lucknow">Lucknow</option>
+                            <option value="bangalore">Bangalore</option>
+                            <option value="chennai">Chennai</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label id="labelFullAddress" for="fullAddress">Full Address:</label>
+                        <textarea id="fullAddress" name="fullAddress" rows="3" placeholder="Enter your full address" required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bank Details Section -->
+            <div class="section-card">
+                <h2 id="sectionTitleBank">Bank Details</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label id="labelBankAccountNumber" for="bankAccountNumber">Bank Account Number:</label>
+                        <input type="text" id="bankAccountNumber" name="bankAccountNumber" placeholder="Enter bank account number" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelAccountHolderName" for="accountHolderName">Account Holder Name:</label>
+                        <input type="text" id="accountHolderName" name="accountHolderName" placeholder="Enter account holder name" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelIFSCCode" for="ifscCode">IFSC Code:</label>
+                        <input type="text" id="ifscCode" name="ifscCode" placeholder="Enter IFSC code" required pattern="[A-Z]{4}0[A-Z0-9]{6}" title="Please enter a valid IFSC code (e.g., ABCD0123456)">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelBranchName" for="branchName">Branch Name:</label>
+                        <input type="text" id="branchName" name="branchName" placeholder="Enter branch name" required>
+                    </div>
+                </div>
+            </div>
+
+            <button id="submitBtn" type="submit">Submit Form</button>
         </form>
 
         <div id="imageResult" class="hidden">
-            <h2 id="imagePreviewTitle" class="text-2xl font-semibold mt-8">Generated Image Preview:</h2>
-            <img id="generatedImage" src="" alt="Generated Image" class="mt-5">
-            <a id="downloadImage" href="#" download="form_data_image.png" class="inline-block mt-6 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
+            <h2 id="imagePreviewTitle" class="text-2xl font-semibold mt-8 text-gray-800">Generated Form Image:</h2>
+            <img id="generatedImage" src="" alt="Generated Form Image" class="mt-5">
+            <a id="downloadImage" href="#" download="form_data_image.png" class="inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
                 Download Image
             </a>
         </div>
@@ -278,10 +468,13 @@
 
     <!-- This hidden div will be used by html2canvas to create the image -->
     <div id="imageSource" class="text-base">
-        <h3 id="imageSourceMainTitle">Form Submission Details</h3>
-        <div id="imageSourceContent">
-            <!-- Content will be dynamically added here -->
+        <div class="image-header">
+            <h3 id="imageSourceMainTitle">Anjali Group India</h3>
+            <p id="imageSourceSubtitle">Investment Portal - Submission Details</p>
         </div>
+
+        <!-- Content for image generation will be dynamically added here -->
+        <div id="imageSourceContent"></div>
     </div>
 
     <!-- html2canvas library from CDN -->
@@ -291,82 +484,156 @@
         // Language translations
         const translations = {
             en: {
-                mainTitle: "Fill Your Details",
-                labelName: "Name:",
-                placeholderName: "Enter your name",
-                labelGuardian: "Guardian:",
-                placeholderGuardian: "Enter guardian's name",
-                labelMobile: "Mobile:",
-                placeholderMobile: "Enter mobile number",
-                labelAadhar: "Aadhar:",
-                placeholderAadhar: "Enter Aadhar number",
-                labelPAN: "PAN:",
-                placeholderPAN: "Enter PAN number",
-                labelNominee: "Nominee:",
-                placeholderNominee: "Enter nominee's name",
-                labelRelation: "Relation:",
-                placeholderRelation: "Enter relation with nominee",
-                labelProject: "Project:",
-                placeholderProject: "Enter project name",
-                labelPayment: "Payment:",
-                placeholderPayment: "Enter payment details",
-                labelSponsor: "Sponsor:",
-                placeholderSponsor: "Enter sponsor's name",
-                labelTeamLeaders: "Team Leaders:",
-                placeholderTeamLeaders: "Enter team leaders' names",
-                labelAccountNo: "Account Number:",
-                placeholderAccountNo: "Enter account number",
+                mainTitle: "Anjali Group India - Investment Portal",
+                sectionTitlePersonal: "Personal Details",
+                labelFullName: "Full Name:",
+                placeholderFullName: "e.g., John Doe",
+                labelMobileNumber: "Mobile Number:",
+                placeholderMobileNumber: "e.g., 9876543210",
+                labelEmailAddress: "Email Address:",
+                placeholderEmailAddress: "e.g., example@domain.com",
+                labelAadharCardNumber: "Aadhar Card Number:",
+                placeholderAadharCardNumber: "e.g., 123456789012",
+                labelPANCardNumber: "PAN Card Number:",
+                placeholderPANCardNumber: "e.g., ABCDE1234F",
+
+                sectionTitleInvestment: "Investment Details",
+                labelInvestmentCategory: "Investment Category:",
+                placeholderInvestmentCategory: "Select Category",
+                optionEquity: "Equity",
+                optionDebt: "Debt",
+                optionRealEstate: "Real Estate",
+                optionMutualFunds: "Mutual Funds",
+                labelInvestmentPlan: "Investment Plan:",
+                placeholderInvestmentPlan: "Select Plan",
+                optionPlanA: "Plan A",
+                optionPlanB: "Plan B",
+                optionPlanC: "Plan C",
+                labelQuantity: "Quantity:",
+                placeholderQuantity: "1",
+                labelTotalInvestmentAmount: "Total Investment Amount (₹):",
+                placeholderTotalInvestmentAmount: "0",
+
+                sectionTitlePayment: "Payment Details",
+                labelPaymentMode: "Payment Mode:",
+                placeholderPaymentMode: "Select Payment Mode",
+                optionOnlineTransfer: "Online Transfer",
+                optionCheque: "Cheque",
+                optionCash: "Cash",
+                labelReferralSponsorName: "Referral/Sponsor Name:",
+                placeholderReferralSponsorName: "e.g., Ram Niwas Gupta",
+
+                sectionTitleAddress: "Address Details",
+                labelState: "State:",
+                placeholderState: "Select State",
+                optionDelhi: "Delhi",
+                optionMaharashtra: "Maharashtra",
+                optionUP: "Uttar Pradesh",
+                optionKarnataka: "Karnataka",
+                optionTamilNadu: "Tamil Nadu",
+                labelDistrict: "District:",
+                placeholderDistrict: "Select District",
+                optionNewDelhi: "New Delhi",
+                optionMumbai: "Mumbai",
+                optionLucknow: "Lucknow",
+                optionBangalore: "Bangalore",
+                optionChennai: "Chennai",
+                labelFullAddress: "Full Address:",
+                placeholderFullAddress: "Enter your full address",
+
+                sectionTitleBank: "Bank Details",
+                labelBankAccountNumber: "Bank Account Number:",
+                placeholderBankAccountNumber: "Enter bank account number",
+                labelAccountHolderName: "Account Holder Name:",
+                placeholderAccountHolderName: "Enter account holder name",
                 labelIFSCCode: "IFSC Code:",
                 placeholderIFSCCode: "Enter IFSC code",
-                labelBankName: "Bank Name:",
-                placeholderBankName: "Enter bank name",
-                labelBranch: "Branch:",
-                placeholderBranch: "Enter branch name",
-                submitBtn: "Generate Image",
-                imagePreviewTitle: "Generated Image Preview:",
+                labelBranchName: "Branch Name:",
+                placeholderBranchName: "Enter branch name",
+
+                submitBtn: "Submit Form",
+                imagePreviewTitle: "Generated Form Image:",
                 downloadImage: "Download Image",
                 switchLang: "Switch to Hindi",
-                imageMainTitle: "Form Submission Details",
+                imageMainTitle: "Anjali Group India",
+                imageSubtitle: "Investment Portal - Submission Details",
                 errorMsg: "Failed to generate image. Please try again.",
                 okBtn: "OK"
             },
             hi: {
-                mainTitle: "अपनी जानकारी भरें",
-                labelName: "नाम:",
-                placeholderName: "अपना नाम दर्ज करें",
-                labelGuardian: "अभिभावक:",
-                placeholderGuardian: "अभिभावक का नाम दर्ज करें",
-                labelMobile: "मोबाइल:",
-                placeholderMobile: "मोबाइल नंबर दर्ज करें",
-                labelAadhar: "आधार:",
-                placeholderAadhar: "आधार नंबर दर्ज करें",
-                labelPAN: "पैन:",
-                placeholderPAN: "पैन नंबर दर्ज करें",
-                labelNominee: "नामिनी:",
-                placeholderNominee: "नामिनी का नाम दर्ज करें",
-                labelRelation: "रिलेशन:",
-                placeholderRelation: "नामिनी के साथ संबंध दर्ज करें",
-                labelProject: "प्रोजेक्ट:",
-                placeholderProject: "प्रोजेक्ट का नाम दर्ज करें",
-                labelPayment: "पेमेंट:",
-                placeholderPayment: "भुगतान विवरण दर्ज करें",
-                labelSponsor: "स्पॉन्सर्:",
-                placeholderSponsor: "स्पॉन्सर् का नाम दर्ज करें",
-                labelTeamLeaders: "टीम लीडर्स:",
-                placeholderTeamLeaders: "टीम लीडर्स के नाम दर्ज करें",
-                labelAccountNo: "खाता संख्या:",
-                placeholderAccountNo: "खाता संख्या दर्ज करें",
+                mainTitle: "अंजलि ग्रुप इंडिया - निवेश पोर्टल",
+                sectionTitlePersonal: "व्यक्तिगत विवरण",
+                labelFullName: "पूरा नाम:",
+                placeholderFullName: "उदाहरण: जॉन डो",
+                labelMobileNumber: "मोबाइल नंबर:",
+                placeholderMobileNumber: "उदाहरण: 9876543210",
+                labelEmailAddress: "ईमेल पता:",
+                placeholderEmailAddress: "उदाहरण: example@domain.com",
+                labelAadharCardNumber: "आधार कार्ड नंबर:",
+                placeholderAadharCardNumber: "उदाहरण: 123456789012",
+                labelPANCardNumber: "पैन कार्ड नंबर:",
+                placeholderPANCardNumber: "उदाहरण: ABCDE1234F",
+
+                sectionTitleInvestment: "निवेश विवरण",
+                labelInvestmentCategory: "निवेश श्रेणी:",
+                placeholderInvestmentCategory: "श्रेणी चुनें",
+                optionEquity: "इक्विटी",
+                optionDebt: "ऋण",
+                optionRealEstate: "रियल एस्टेट",
+                optionMutualFunds: "म्यूचुअल फंड",
+                labelInvestmentPlan: "निवेश योजना:",
+                placeholderInvestmentPlan: "योजना चुनें",
+                optionPlanA: "योजना ए",
+                optionPlanB: "योजना बी",
+                optionPlanC: "योजना सी",
+                labelQuantity: "मात्रा:",
+                placeholderQuantity: "1",
+                labelTotalInvestmentAmount: "कुल निवेश राशि (₹):",
+                placeholderTotalInvestmentAmount: "0",
+
+                sectionTitlePayment: "भुगतान विवरण",
+                labelPaymentMode: "भुगतान मोड:",
+                placeholderPaymentMode: "भुगतान मोड चुनें",
+                optionOnlineTransfer: "ऑनलाइन ट्रांसफर",
+                optionCheque: "चेक",
+                optionCash: "नकद",
+                labelReferralSponsorName: "रेफरल/प्रायोजक का नाम:",
+                placeholderReferralSponsorName: "उदाहरण: राम निवास गुप्ता",
+
+                sectionTitleAddress: "पता विवरण",
+                labelState: "राज्य:",
+                placeholderState: "राज्य चुनें",
+                optionDelhi: "दिल्ली",
+                optionMaharashtra: "महाराष्ट्र",
+                optionUP: "उत्तर प्रदेश",
+                optionKarnataka: "कर्नाटक",
+                optionTamilNadu: "तमिलनाडु",
+                labelDistrict: "जिला:",
+                placeholderDistrict: "जिला चुनें",
+                optionNewDelhi: "नई दिल्ली",
+                optionMumbai: "मुंबई",
+                optionLucknow: "लखनऊ",
+                optionBangalore: "बेंगलुरु",
+                optionChennai: "चेन्नई",
+                labelFullAddress: "पूरा पता:",
+                placeholderFullAddress: "अपना पूरा पता दर्ज करें",
+
+                sectionTitleBank: "बैंक विवरण",
+                labelBankAccountNumber: "बैंक खाता संख्या:",
+                placeholderBankAccountNumber: "बैंक खाता संख्या दर्ज करें",
+                labelAccountHolderName: "खाताधारक का नाम:",
+                placeholderAccountHolderName: "खाताधारक का नाम दर्ज करें",
                 labelIFSCCode: "आई एफ एस सी कोड:",
                 placeholderIFSCCode: "आई एफ एस सी कोड दर्ज करें",
-                labelBankName: "बैंक का नाम:",
-                placeholderBankName: "बैंक का नाम दर्ज करें",
-                labelBranch: "ब्रांच:",
-                placeholderBranch: "ब्रांच का नाम दर्ज करें",
-                submitBtn: "छवि बनाएं",
-                imagePreviewTitle: "जनरेट की गई छवि का पूर्वावलोकन:",
+                labelBranchName: "शाखा का नाम:",
+                placeholderBranchName: "शाखा का नाम दर्ज करें",
+
+                submitBtn: "फॉर्म जमा करें",
+                imagePreviewTitle: "जनरेट की गई फॉर्म छवि:",
                 downloadImage: "छवि डाउनलोड करें",
                 switchLang: "अंग्रेजी में स्विच करें",
-                imageMainTitle: "फॉर्म जमा करने का विवरण",
+                imageMainTitle: "अंजलि ग्रुप इंडिया",
+                imageSubtitle: "निवेश पोर्टल - सबमिशन विवरण",
                 errorMsg: "छवि बनाने में विफल। कृपया पुनः प्रयास करें।",
                 okBtn: "ठीक है"
             }
@@ -385,7 +652,38 @@
         const imagePreviewTitle = document.getElementById('imagePreviewTitle');
         const imageSourceDiv = document.getElementById('imageSource');
         const imageSourceMainTitle = document.getElementById('imageSourceMainTitle');
+        const imageSourceSubtitle = document.getElementById('imageSourceSubtitle');
         const imageSourceContent = document.getElementById('imageSourceContent');
+
+        // Helper function to create a field row for the image
+        function createImageFieldRow(label, value) {
+            const row = document.createElement('div');
+            row.className = 'image-field-row';
+            const labelCol = document.createElement('span');
+            labelCol.className = 'label-col';
+            labelCol.textContent = label;
+            const valueCol = document.createElement('span');
+            valueCol.className = 'value-col';
+            valueCol.textContent = value;
+            row.appendChild(labelCol);
+            row.appendChild(valueCol);
+            return row;
+        }
+
+        // Helper function to create a full-width field row for the image (e.g., address)
+        function createImageFieldFullWidth(label, value) {
+            const row = document.createElement('div');
+            row.className = 'image-field-full-width';
+            const labelCol = document.createElement('div');
+            labelCol.className = 'label-col';
+            labelCol.textContent = label;
+            const valueCol = document.createElement('div');
+            valueCol.className = 'value-col';
+            valueCol.textContent = value;
+            row.appendChild(labelCol);
+            row.appendChild(valueCol);
+            return row;
+        }
 
         // Function to update text content based on current language
         function updateContent() {
@@ -397,38 +695,80 @@
             imagePreviewTitle.textContent = lang.imagePreviewTitle;
             downloadImageButton.textContent = lang.downloadImage;
             imageSourceMainTitle.textContent = lang.imageMainTitle;
+            imageSourceSubtitle.textContent = lang.imageSubtitle;
+
+            // Update section titles
+            document.getElementById('sectionTitlePersonal').textContent = lang.sectionTitlePersonal;
+            document.getElementById('sectionTitleInvestment').textContent = lang.sectionTitleInvestment;
+            document.getElementById('sectionTitlePayment').textContent = lang.sectionTitlePayment;
+            document.getElementById('sectionTitleAddress').textContent = lang.sectionTitleAddress;
+            document.getElementById('sectionTitleBank').textContent = lang.sectionTitleBank;
 
             // Update form labels and placeholders
-            document.getElementById('labelName').textContent = lang.labelName;
-            document.getElementById('name').placeholder = lang.placeholderName;
-            document.getElementById('labelGuardian').textContent = lang.labelGuardian;
-            document.getElementById('guardian').placeholder = lang.placeholderGuardian;
-            document.getElementById('labelMobile').textContent = lang.labelMobile;
-            document.getElementById('mobile').placeholder = lang.placeholderMobile;
-            document.getElementById('labelAadhar').textContent = lang.labelAadhar;
-            document.getElementById('aadhar').placeholder = lang.placeholderAadhar;
-            document.getElementById('labelPAN').textContent = lang.labelPAN;
-            document.getElementById('pan').placeholder = lang.placeholderPAN;
-            document.getElementById('labelNominee').textContent = lang.labelNominee;
-            document.getElementById('nominee').placeholder = lang.placeholderNominee;
-            document.getElementById('labelRelation').textContent = lang.labelRelation;
-            document.getElementById('relation').placeholder = lang.placeholderRelation;
-            document.getElementById('labelProject').textContent = lang.labelProject;
-            document.getElementById('project').placeholder = lang.placeholderProject;
-            document.getElementById('labelPayment').textContent = lang.labelPayment;
-            document.getElementById('payment').placeholder = lang.placeholderPayment;
-            document.getElementById('labelSponsor').textContent = lang.labelSponsor;
-            document.getElementById('sponsor').placeholder = lang.placeholderSponsor;
-            document.getElementById('labelTeamLeaders').textContent = lang.labelTeamLeaders;
-            document.getElementById('teamLeaders').placeholder = lang.placeholderTeamLeaders;
-            document.getElementById('labelAccountNo').textContent = lang.labelAccountNo;
-            document.getElementById('accountNo').placeholder = lang.placeholderAccountNo;
+            document.getElementById('labelFullName').textContent = lang.labelFullName;
+            document.getElementById('fullName').placeholder = lang.placeholderFullName;
+            document.getElementById('labelMobileNumber').textContent = lang.labelMobileNumber;
+            document.getElementById('mobileNumber').placeholder = lang.placeholderMobileNumber;
+            document.getElementById('labelEmailAddress').textContent = lang.labelEmailAddress;
+            document.getElementById('emailAddress').placeholder = lang.placeholderEmailAddress;
+            document.getElementById('labelAadharCardNumber').textContent = lang.labelAadharCardNumber;
+            document.getElementById('aadharCardNumber').placeholder = lang.placeholderAadharCardNumber;
+            document.getElementById('labelPANCardNumber').textContent = lang.labelPANCardNumber;
+            document.getElementById('panCardNumber').placeholder = lang.placeholderPANCardNumber;
+
+            document.getElementById('labelInvestmentCategory').textContent = lang.labelInvestmentCategory;
+            document.querySelector('#investmentCategory option[value=""]').textContent = lang.placeholderInvestmentCategory;
+            document.querySelector('#investmentCategory option[value="equity"]').textContent = lang.optionEquity;
+            document.querySelector('#investmentCategory option[value="debt"]').textContent = lang.optionDebt;
+            document.querySelector('#investmentCategory option[value="real_estate"]').textContent = lang.optionRealEstate;
+            document.querySelector('#investmentCategory option[value="mutual_funds"]').textContent = lang.optionMutualFunds;
+
+            document.getElementById('labelInvestmentPlan').textContent = lang.labelInvestmentPlan;
+            document.querySelector('#investmentPlan option[value=""]').textContent = lang.placeholderInvestmentPlan;
+            document.querySelector('#investmentPlan option[value="plan_a"]').textContent = lang.optionPlanA;
+            document.querySelector('#investmentPlan option[value="plan_b"]').textContent = lang.optionPlanB;
+            document.querySelector('#investmentPlan option[value="plan_c"]').textContent = lang.optionPlanC;
+
+            document.getElementById('labelQuantity').textContent = lang.labelQuantity;
+            document.getElementById('quantity').placeholder = lang.placeholderQuantity;
+            document.getElementById('labelTotalInvestmentAmount').textContent = lang.labelTotalInvestmentAmount;
+            document.getElementById('totalInvestmentAmount').placeholder = lang.placeholderTotalInvestmentAmount;
+
+            document.getElementById('labelPaymentMode').textContent = lang.labelPaymentMode;
+            document.querySelector('#paymentMode option[value=""]').textContent = lang.placeholderPaymentMode;
+            document.querySelector('#paymentMode option[value="online"]').textContent = lang.optionOnlineTransfer;
+            document.querySelector('#paymentMode option[value="cheque"]').textContent = lang.optionCheque;
+            document.querySelector('#paymentMode option[value="cash"]').textContent = lang.optionCash;
+            document.getElementById('labelReferralSponsorName').textContent = lang.labelReferralSponsorName;
+            document.getElementById('referralSponsorName').placeholder = lang.placeholderReferralSponsorName;
+
+            document.getElementById('labelState').textContent = lang.labelState;
+            document.querySelector('#state option[value=""]').textContent = lang.placeholderState;
+            document.querySelector('#state option[value="delhi"]').textContent = lang.optionDelhi;
+            document.querySelector('#state option[value="maharashtra"]').textContent = lang.optionMaharashtra;
+            document.querySelector('#state option[value="up"]').textContent = lang.optionUP;
+            document.querySelector('#state option[value="karnataka"]').textContent = lang.optionKarnataka;
+            document.querySelector('#state option[value="tamil_nadu"]').textContent = lang.optionTamilNadu;
+
+            document.getElementById('labelDistrict').textContent = lang.labelDistrict;
+            document.querySelector('#district option[value=""]').textContent = lang.placeholderDistrict;
+            document.querySelector('#district option[value="new_delhi"]').textContent = lang.optionNewDelhi;
+            document.querySelector('#district option[value="mumbai"]').textContent = lang.optionMumbai;
+            document.querySelector('#district option[value="lucknow"]').textContent = lang.optionLucknow;
+            document.querySelector('#district option[value="bangalore"]').textContent = lang.optionBangalore;
+            document.querySelector('#district option[value="chennai"]').textContent = lang.optionChennai;
+
+            document.getElementById('labelFullAddress').textContent = lang.labelFullAddress;
+            document.getElementById('fullAddress').placeholder = lang.placeholderFullAddress;
+
+            document.getElementById('labelBankAccountNumber').textContent = lang.labelBankAccountNumber;
+            document.getElementById('bankAccountNumber').placeholder = lang.placeholderBankAccountNumber;
+            document.getElementById('labelAccountHolderName').textContent = lang.labelAccountHolderName;
+            document.getElementById('accountHolderName').placeholder = lang.placeholderAccountHolderName;
             document.getElementById('labelIFSCCode').textContent = lang.labelIFSCCode;
             document.getElementById('ifscCode').placeholder = lang.placeholderIFSCCode;
-            document.getElementById('labelBankName').textContent = lang.labelBankName;
-            document.getElementById('bankName').placeholder = lang.placeholderBankName;
-            document.getElementById('labelBranch').textContent = lang.labelBranch;
-            document.getElementById('branch').placeholder = lang.placeholderBranch;
+            document.getElementById('labelBranchName').textContent = lang.labelBranchName;
+            document.getElementById('branchName').placeholder = lang.placeholderBranchName;
         }
 
         // Initial content update
@@ -446,43 +786,90 @@
 
             // Get all form data
             const formData = {
-                name: document.getElementById('name').value,
-                guardian: document.getElementById('guardian').value,
-                mobile: document.getElementById('mobile').value,
-                aadhar: document.getElementById('aadhar').value,
-                pan: document.getElementById('pan').value,
-                nominee: document.getElementById('nominee').value,
-                relation: document.getElementById('relation').value,
-                project: document.getElementById('project').value,
-                payment: document.getElementById('payment').value,
-                sponsor: document.getElementById('sponsor').value,
-                teamLeaders: document.getElementById('teamLeaders').value,
-                accountNo: document.getElementById('accountNo').value,
+                fullName: document.getElementById('fullName').value,
+                mobileNumber: document.getElementById('mobileNumber').value,
+                emailAddress: document.getElementById('emailAddress').value,
+                aadharCardNumber: document.getElementById('aadharCardNumber').value,
+                panCardNumber: document.getElementById('panCardNumber').value,
+
+                investmentCategory: document.getElementById('investmentCategory').value,
+                investmentPlan: document.getElementById('investmentPlan').value,
+                quantity: document.getElementById('quantity').value,
+                totalInvestmentAmount: document.getElementById('totalInvestmentAmount').value,
+
+                paymentMode: document.getElementById('paymentMode').value,
+                referralSponsorName: document.getElementById('referralSponsorName').value,
+
+                state: document.getElementById('state').value,
+                district: document.getElementById('district').value,
+                fullAddress: document.getElementById('fullAddress').value,
+
+                bankAccountNumber: document.getElementById('bankAccountNumber').value,
+                accountHolderName: document.getElementById('accountHolderName').value,
                 ifscCode: document.getElementById('ifscCode').value,
-                bankName: document.getElementById('bankName').value,
-                branch: document.getElementById('branch').value,
+                branchName: document.getElementById('branchName').value,
             };
 
             // Clear previous content in imageSourceContent
             imageSourceContent.innerHTML = '';
 
             // Populate the hidden div with the content to be imaged
-            // We'll display all fields in a list format
-            for (const key in formData) {
-                if (formData.hasOwnProperty(key)) {
-                    const fieldDiv = document.createElement('div');
-                    fieldDiv.className = 'image-field'; // Tailwind classes for styling within the image
-                    const labelText = translations[currentLang]['label' + key.charAt(0).toUpperCase() + key.slice(1)] || key; // Get translated label
-                    fieldDiv.innerHTML = `<span>${labelText}</span> ${formData[key]}`;
-                    imageSourceContent.appendChild(fieldDiv);
-                }
-            }
+            const lang = translations[currentLang];
+
+            // Personal Details Section
+            const personalSection = document.createElement('div');
+            personalSection.className = 'image-section-output';
+            personalSection.innerHTML = `<h4>${lang.sectionTitlePersonal}</h4>`;
+            personalSection.appendChild(createImageFieldRow(lang.labelFullName, formData.fullName));
+            personalSection.appendChild(createImageFieldRow(lang.labelMobileNumber, formData.mobileNumber));
+            personalSection.appendChild(createImageFieldRow(lang.labelEmailAddress, formData.emailAddress));
+            personalSection.appendChild(createImageFieldRow(lang.labelAadharCardNumber, formData.aadharCardNumber));
+            personalSection.appendChild(createImageFieldRow(lang.labelPANCardNumber, formData.panCardNumber));
+            imageSourceContent.appendChild(personalSection);
+
+            // Investment Details Section
+            const investmentSection = document.createElement('div');
+            investmentSection.className = 'image-section-output';
+            investmentSection.innerHTML = `<h4>${lang.sectionTitleInvestment}</h4>`;
+            investmentSection.appendChild(createImageFieldRow(lang.labelInvestmentCategory, document.getElementById('investmentCategory').options[document.getElementById('investmentCategory').selectedIndex].text));
+            investmentSection.appendChild(createImageFieldRow(lang.labelInvestmentPlan, document.getElementById('investmentPlan').options[document.getElementById('investmentPlan').selectedIndex].text));
+            investmentSection.appendChild(createImageFieldRow(lang.labelQuantity, formData.quantity));
+            investmentSection.appendChild(createImageFieldRow(lang.labelTotalInvestmentAmount, `₹ ${formData.totalInvestmentAmount}`));
+            imageSourceContent.appendChild(investmentSection);
+
+            // Payment Details Section
+            const paymentSection = document.createElement('div');
+            paymentSection.className = 'image-section-output';
+            paymentSection.innerHTML = `<h4>${lang.sectionTitlePayment}</h4>`;
+            paymentSection.appendChild(createImageFieldRow(lang.labelPaymentMode, document.getElementById('paymentMode').options[document.getElementById('paymentMode').selectedIndex].text));
+            paymentSection.appendChild(createImageFieldRow(lang.labelReferralSponsorName, formData.referralSponsorName));
+            imageSourceContent.appendChild(paymentSection);
+
+            // Address Details Section
+            const addressSection = document.createElement('div');
+            addressSection.className = 'image-section-output';
+            addressSection.innerHTML = `<h4>${lang.sectionTitleAddress}</h4>`;
+            addressSection.appendChild(createImageFieldRow(lang.labelState, document.getElementById('state').options[document.getElementById('state').selectedIndex].text));
+            addressSection.appendChild(createImageFieldRow(lang.labelDistrict, document.getElementById('district').options[document.getElementById('district').selectedIndex].text));
+            addressSection.appendChild(createImageFieldFullWidth(lang.labelFullAddress, formData.fullAddress));
+            imageSourceContent.appendChild(addressSection);
+
+            // Bank Details Section
+            const bankSection = document.createElement('div');
+            bankSection.className = 'image-section-output';
+            bankSection.innerHTML = `<h4>${lang.sectionTitleBank}</h4>`;
+            bankSection.appendChild(createImageFieldRow(lang.labelBankAccountNumber, formData.bankAccountNumber));
+            bankSection.appendChild(createImageFieldRow(lang.labelAccountHolderName, formData.accountHolderName));
+            bankSection.appendChild(createImageFieldRow(lang.labelIFSCCode, formData.ifscCode));
+            bankSection.appendChild(createImageFieldRow(lang.labelBranchName, formData.branchName));
+            imageSourceContent.appendChild(bankSection);
+
 
             // Temporarily make the imageSourceDiv visible off-screen for html2canvas to render correctly
             imageSourceDiv.style.position = 'absolute';
             imageSourceDiv.style.left = '-9999px';
             imageSourceDiv.style.top = '-9999px';
-            imageSourceDiv.style.display = 'flex'; // Ensure flex properties are applied for centering content
+            imageSourceDiv.style.display = 'flex';
             imageSourceDiv.style.height = 'auto'; // Allow height to adjust for content
 
             try {
@@ -490,7 +877,7 @@
                 const canvas = await html2canvas(imageSourceDiv, {
                     scale: 2, // Increase scale for better image quality (e.g., 2x resolution)
                     useCORS: true,
-                    backgroundColor: null,
+                    backgroundColor: null, // Let CSS background apply
                     logging: false
                 });
 
@@ -503,7 +890,7 @@
 
                 // Set the download link
                 downloadImageButton.href = imageDataUrl;
-                downloadImageButton.download = `form_data_image_${Date.now()}.png`; // Unique filename
+                downloadImageButton.download = `anjali_group_form_${Date.now()}.png`; // Unique filename
 
             } catch (error) {
                 console.error('Error generating image:', error);
