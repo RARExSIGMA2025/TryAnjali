@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Generator Form</title>
+    <title>Form & Image Generator</title>
     <!-- Tailwind CSS CDN for easy styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -26,7 +26,7 @@
             border-radius: 12px; /* More rounded corners */
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Stronger shadow */
             width: 100%;
-            max-width: 560px; /* Slightly wider */
+            max-width: 600px; /* Slightly wider to accommodate more fields */
             text-align: center;
             border: 1px solid #e5e7eb; /* Light border */
         }
@@ -37,8 +37,19 @@
             font-weight: 700; /* Bold headings */
         }
 
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 640px) { /* Small screens and up */
+            .form-grid {
+                grid-template-columns: 1fr 1fr; /* Two columns for larger screens */
+            }
+        }
+
         .form-group {
-            margin-bottom: 20px;
             text-align: left;
         }
 
@@ -51,6 +62,7 @@
         }
 
         input[type="text"],
+        input[type="number"],
         textarea {
             width: 100%; /* Full width */
             padding: 12px;
@@ -63,6 +75,7 @@
         }
 
         input[type="text"]:focus,
+        input[type="number"]:focus,
         textarea:focus {
             outline: none;
             border-color: #3b82f6; /* Blue border on focus */
@@ -111,37 +124,44 @@
             background-color: #e0f2fe; /* Light blue background for the image content */
             padding: 40px;
             border-radius: 12px;
-            text-align: center;
+            text-align: left; /* Align text left within the image */
             color: #1e3a8a; /* Dark blue text */
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 250px; /* Ensure a decent size for the image */
+            justify-content: flex-start; /* Align content to the top */
+            align-items: flex-start; /* Align content to the left */
+            min-height: 450px; /* Ensure a decent size for the image */
             box-sizing: border-box;
             /* Initially hidden, will be made visible briefly for html2canvas */
             position: absolute;
             left: -9999px;
             top: -9999px;
-            width: 600px; /* Fixed width for consistent image size */
-            height: 350px; /* Fixed height for consistent image size */
+            width: 700px; /* Fixed width for consistent image size */
+            height: auto; /* Height will adjust based on content */
             overflow: hidden; /* Hide overflow if text is too long */
+            font-size: 1.2rem;
+            line-height: 1.6;
         }
 
         #imageSource h3 {
-            font-size: 2.5rem; /* Larger title in the image */
+            font-size: 2.2rem; /* Larger title in the image */
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 1.2;
             color: #0c4a6e; /* Even darker blue for title */
+            text-align: center;
+            width: 100%;
         }
 
-        #imageSource p {
-            font-size: 1.4rem; /* Larger message in the image */
-            line-height: 1.5;
-            color: #155e75; /* Slightly lighter blue for message */
-            max-width: 90%;
-            word-wrap: break-word; /* Ensure long words wrap */
+        #imageSource .image-field {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        #imageSource .image-field span {
+            font-weight: 600;
+            color: #155e75;
+            margin-right: 8px;
         }
 
         /* Responsive adjustments */
@@ -161,94 +181,317 @@
             }
 
             #imageSource {
-                width: 320px; /* Smaller fixed width for mobile image */
-                height: 200px; /* Smaller fixed height for mobile image */
+                width: 350px; /* Smaller fixed width for mobile image */
+                min-height: 300px; /* Adjust height */
                 padding: 20px;
+                font-size: 0.9rem;
             }
 
             #imageSource h3 {
                 font-size: 1.5rem;
-                margin-bottom: 10px;
-            }
-
-            #imageSource p {
-                font-size: 0.9rem;
+                margin-bottom: 15px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-3xl font-bold">Generate Your Custom Image</h1>
+        <div class="flex justify-end mb-4">
+            <button id="langToggle" class="bg-gray-200 text-gray-800 hover:bg-gray-300 px-4 py-2 rounded-md text-sm">Switch to Hindi</button>
+        </div>
+        <h1 id="mainTitle" class="text-3xl font-bold">Fill Your Details</h1>
 
-        <form id="imageForm">
-            <div class="form-group">
-                <label for="title">Title for Image:</label>
-                <input type="text" id="title" name="title" placeholder="e.g., Daily Reminder" required>
+        <form id="dataForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label id="labelName" for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelGuardian" for="guardian">Guardian:</label>
+                    <input type="text" id="guardian" name="guardian" placeholder="Enter guardian's name" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelMobile" for="mobile">Mobile:</label>
+                    <input type="text" id="mobile" name="mobile" placeholder="Enter mobile number" required pattern="[0-9]{10}" title="Please enter a 10-digit mobile number">
+                </div>
+                <div class="form-group">
+                    <label id="labelAadhar" for="aadhar">Aadhar:</label>
+                    <input type="text" id="aadhar" name="aadhar" placeholder="Enter Aadhar number" required pattern="[0-9]{12}" title="Please enter a 12-digit Aadhar number">
+                </div>
+                <div class="form-group">
+                    <label id="labelPAN" for="pan">PAN:</label>
+                    <input type="text" id="pan" name="pan" placeholder="Enter PAN number" required pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" title="Please enter a valid 10-character PAN (e.g., ABCDE1234F)">
+                </div>
+                <div class="form-group">
+                    <label id="labelNominee" for="nominee">Nominee:</label>
+                    <input type="text" id="nominee" name="nominee" placeholder="Enter nominee's name" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelRelation" for="relation">Relation:</label>
+                    <input type="text" id="relation" name="relation" placeholder="Enter relation with nominee" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelProject" for="project">Project:</label>
+                    <input type="text" id="project" name="project" placeholder="Enter project name" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelPayment" for="payment">Payment:</label>
+                    <input type="text" id="payment" name="payment" placeholder="Enter payment details" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelSponsor" for="sponsor">Sponsor:</label>
+                    <input type="text" id="sponsor" name="sponsor" placeholder="Enter sponsor's name" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelTeamLeaders" for="teamLeaders">Team Leaders:</label>
+                    <input type="text" id="teamLeaders" name="teamLeaders" placeholder="Enter team leaders' names" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelAccountNo" for="accountNo">Account Number:</label>
+                    <input type="text" id="accountNo" name="accountNo" placeholder="Enter account number" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelIFSCCode" for="ifscCode">IFSC Code:</label>
+                    <input type="text" id="ifscCode" name="ifscCode" placeholder="Enter IFSC code" required pattern="[A-Z]{4}0[A-Z0-9]{6}" title="Please enter a valid IFSC code (e.g., ABCD0123456)">
+                </div>
+                <div class="form-group">
+                    <label id="labelBankName" for="bankName">Bank Name:</label>
+                    <input type="text" id="bankName" name="bankName" placeholder="Enter bank name" required>
+                </div>
+                <div class="form-group">
+                    <label id="labelBranch" for="branch">Branch:</label>
+                    <input type="text" id="branch" name="branch" placeholder="Enter branch name" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="message">Message for Image:</label>
-                <textarea id="message" name="message" rows="5" placeholder="e.g., Don't forget to take a break and relax!" required></textarea>
-            </div>
-            <button type="submit">Generate Image</button>
+            <button id="submitBtn" type="submit">Generate Image</button>
         </form>
 
         <div id="imageResult" class="hidden">
-            <h2 class="text-2xl font-semibold mt-8">Generated Image Preview:</h2>
+            <h2 id="imagePreviewTitle" class="text-2xl font-semibold mt-8">Generated Image Preview:</h2>
             <img id="generatedImage" src="" alt="Generated Image" class="mt-5">
-            <a id="downloadImage" href="#" download="generated_image.png" class="inline-block mt-6 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
+            <a id="downloadImage" href="#" download="form_data_image.png" class="inline-block mt-6 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
                 Download Image
             </a>
         </div>
     </div>
 
     <!-- This hidden div will be used by html2canvas to create the image -->
-    <div id="imageSource">
-        <h3 id="imageSourceTitle"></h3>
-        <p id="imageSourceMessage"></p>
+    <div id="imageSource" class="text-base">
+        <h3 id="imageSourceMainTitle">Form Submission Details</h3>
+        <div id="imageSourceContent">
+            <!-- Content will be dynamically added here -->
+        </div>
     </div>
 
     <!-- html2canvas library from CDN -->
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
     <script>
+        // Language translations
+        const translations = {
+            en: {
+                mainTitle: "Fill Your Details",
+                labelName: "Name:",
+                placeholderName: "Enter your name",
+                labelGuardian: "Guardian:",
+                placeholderGuardian: "Enter guardian's name",
+                labelMobile: "Mobile:",
+                placeholderMobile: "Enter mobile number",
+                labelAadhar: "Aadhar:",
+                placeholderAadhar: "Enter Aadhar number",
+                labelPAN: "PAN:",
+                placeholderPAN: "Enter PAN number",
+                labelNominee: "Nominee:",
+                placeholderNominee: "Enter nominee's name",
+                labelRelation: "Relation:",
+                placeholderRelation: "Enter relation with nominee",
+                labelProject: "Project:",
+                placeholderProject: "Enter project name",
+                labelPayment: "Payment:",
+                placeholderPayment: "Enter payment details",
+                labelSponsor: "Sponsor:",
+                placeholderSponsor: "Enter sponsor's name",
+                labelTeamLeaders: "Team Leaders:",
+                placeholderTeamLeaders: "Enter team leaders' names",
+                labelAccountNo: "Account Number:",
+                placeholderAccountNo: "Enter account number",
+                labelIFSCCode: "IFSC Code:",
+                placeholderIFSCCode: "Enter IFSC code",
+                labelBankName: "Bank Name:",
+                placeholderBankName: "Enter bank name",
+                labelBranch: "Branch:",
+                placeholderBranch: "Enter branch name",
+                submitBtn: "Generate Image",
+                imagePreviewTitle: "Generated Image Preview:",
+                downloadImage: "Download Image",
+                switchLang: "Switch to Hindi",
+                imageMainTitle: "Form Submission Details",
+                errorMsg: "Failed to generate image. Please try again.",
+                okBtn: "OK"
+            },
+            hi: {
+                mainTitle: "अपनी जानकारी भरें",
+                labelName: "नाम:",
+                placeholderName: "अपना नाम दर्ज करें",
+                labelGuardian: "अभिभावक:",
+                placeholderGuardian: "अभिभावक का नाम दर्ज करें",
+                labelMobile: "मोबाइल:",
+                placeholderMobile: "मोबाइल नंबर दर्ज करें",
+                labelAadhar: "आधार:",
+                placeholderAadhar: "आधार नंबर दर्ज करें",
+                labelPAN: "पैन:",
+                placeholderPAN: "पैन नंबर दर्ज करें",
+                labelNominee: "नामिनी:",
+                placeholderNominee: "नामिनी का नाम दर्ज करें",
+                labelRelation: "रिलेशन:",
+                placeholderRelation: "नामिनी के साथ संबंध दर्ज करें",
+                labelProject: "प्रोजेक्ट:",
+                placeholderProject: "प्रोजेक्ट का नाम दर्ज करें",
+                labelPayment: "पेमेंट:",
+                placeholderPayment: "भुगतान विवरण दर्ज करें",
+                labelSponsor: "स्पॉन्सर्:",
+                placeholderSponsor: "स्पॉन्सर् का नाम दर्ज करें",
+                labelTeamLeaders: "टीम लीडर्स:",
+                placeholderTeamLeaders: "टीम लीडर्स के नाम दर्ज करें",
+                labelAccountNo: "खाता संख्या:",
+                placeholderAccountNo: "खाता संख्या दर्ज करें",
+                labelIFSCCode: "आई एफ एस सी कोड:",
+                placeholderIFSCCode: "आई एफ एस सी कोड दर्ज करें",
+                labelBankName: "बैंक का नाम:",
+                placeholderBankName: "बैंक का नाम दर्ज करें",
+                labelBranch: "ब्रांच:",
+                placeholderBranch: "ब्रांच का नाम दर्ज करें",
+                submitBtn: "छवि बनाएं",
+                imagePreviewTitle: "जनरेट की गई छवि का पूर्वावलोकन:",
+                downloadImage: "छवि डाउनलोड करें",
+                switchLang: "अंग्रेजी में स्विच करें",
+                imageMainTitle: "फॉर्म जमा करने का विवरण",
+                errorMsg: "छवि बनाने में विफल। कृपया पुनः प्रयास करें।",
+                okBtn: "ठीक है"
+            }
+        };
+
+        let currentLang = 'en'; // Default language
+
         // Get references to DOM elements
-        const imageForm = document.getElementById('imageForm');
+        const langToggle = document.getElementById('langToggle');
+        const mainTitle = document.getElementById('mainTitle');
+        const dataForm = document.getElementById('dataForm');
+        const submitBtn = document.getElementById('submitBtn');
         const imageResultDiv = document.getElementById('imageResult');
         const generatedImage = document.getElementById('generatedImage');
         const downloadImageButton = document.getElementById('downloadImage');
+        const imagePreviewTitle = document.getElementById('imagePreviewTitle');
         const imageSourceDiv = document.getElementById('imageSource');
-        const imageSourceTitle = document.getElementById('imageSourceTitle');
-        const imageSourceMessage = document.getElementById('imageSourceMessage');
+        const imageSourceMainTitle = document.getElementById('imageSourceMainTitle');
+        const imageSourceContent = document.getElementById('imageSourceContent');
+
+        // Function to update text content based on current language
+        function updateContent() {
+            const lang = translations[currentLang];
+
+            mainTitle.textContent = lang.mainTitle;
+            langToggle.textContent = lang.switchLang;
+            submitBtn.textContent = lang.submitBtn;
+            imagePreviewTitle.textContent = lang.imagePreviewTitle;
+            downloadImageButton.textContent = lang.downloadImage;
+            imageSourceMainTitle.textContent = lang.imageMainTitle;
+
+            // Update form labels and placeholders
+            document.getElementById('labelName').textContent = lang.labelName;
+            document.getElementById('name').placeholder = lang.placeholderName;
+            document.getElementById('labelGuardian').textContent = lang.labelGuardian;
+            document.getElementById('guardian').placeholder = lang.placeholderGuardian;
+            document.getElementById('labelMobile').textContent = lang.labelMobile;
+            document.getElementById('mobile').placeholder = lang.placeholderMobile;
+            document.getElementById('labelAadhar').textContent = lang.labelAadhar;
+            document.getElementById('aadhar').placeholder = lang.placeholderAadhar;
+            document.getElementById('labelPAN').textContent = lang.labelPAN;
+            document.getElementById('pan').placeholder = lang.placeholderPAN;
+            document.getElementById('labelNominee').textContent = lang.labelNominee;
+            document.getElementById('nominee').placeholder = lang.placeholderNominee;
+            document.getElementById('labelRelation').textContent = lang.labelRelation;
+            document.getElementById('relation').placeholder = lang.placeholderRelation;
+            document.getElementById('labelProject').textContent = lang.labelProject;
+            document.getElementById('project').placeholder = lang.placeholderProject;
+            document.getElementById('labelPayment').textContent = lang.labelPayment;
+            document.getElementById('payment').placeholder = lang.placeholderPayment;
+            document.getElementById('labelSponsor').textContent = lang.labelSponsor;
+            document.getElementById('sponsor').placeholder = lang.placeholderSponsor;
+            document.getElementById('labelTeamLeaders').textContent = lang.labelTeamLeaders;
+            document.getElementById('teamLeaders').placeholder = lang.placeholderTeamLeaders;
+            document.getElementById('labelAccountNo').textContent = lang.labelAccountNo;
+            document.getElementById('accountNo').placeholder = lang.placeholderAccountNo;
+            document.getElementById('labelIFSCCode').textContent = lang.labelIFSCCode;
+            document.getElementById('ifscCode').placeholder = lang.placeholderIFSCCode;
+            document.getElementById('labelBankName').textContent = lang.labelBankName;
+            document.getElementById('bankName').placeholder = lang.placeholderBankName;
+            document.getElementById('labelBranch').textContent = lang.labelBranch;
+            document.getElementById('branch').placeholder = lang.placeholderBranch;
+        }
+
+        // Initial content update
+        updateContent();
+
+        // Language toggle functionality
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            updateContent();
+        });
 
         // Add event listener for form submission
-        imageForm.addEventListener('submit', async function(event) {
+        dataForm.addEventListener('submit', async function(event) {
             event.preventDefault(); // Prevent default form submission
 
-            // Get values from the form
-            const title = document.getElementById('title').value;
-            const message = document.getElementById('message').value;
+            // Get all form data
+            const formData = {
+                name: document.getElementById('name').value,
+                guardian: document.getElementById('guardian').value,
+                mobile: document.getElementById('mobile').value,
+                aadhar: document.getElementById('aadhar').value,
+                pan: document.getElementById('pan').value,
+                nominee: document.getElementById('nominee').value,
+                relation: document.getElementById('relation').value,
+                project: document.getElementById('project').value,
+                payment: document.getElementById('payment').value,
+                sponsor: document.getElementById('sponsor').value,
+                teamLeaders: document.getElementById('teamLeaders').value,
+                accountNo: document.getElementById('accountNo').value,
+                ifscCode: document.getElementById('ifscCode').value,
+                bankName: document.getElementById('bankName').value,
+                branch: document.getElementById('branch').value,
+            };
+
+            // Clear previous content in imageSourceContent
+            imageSourceContent.innerHTML = '';
 
             // Populate the hidden div with the content to be imaged
-            imageSourceTitle.textContent = title;
-            imageSourceMessage.textContent = message;
+            // We'll display all fields in a list format
+            for (const key in formData) {
+                if (formData.hasOwnProperty(key)) {
+                    const fieldDiv = document.createElement('div');
+                    fieldDiv.className = 'image-field'; // Tailwind classes for styling within the image
+                    const labelText = translations[currentLang]['label' + key.charAt(0).toUpperCase() + key.slice(1)] || key; // Get translated label
+                    fieldDiv.innerHTML = `<span>${labelText}</span> ${formData[key]}`;
+                    imageSourceContent.appendChild(fieldDiv);
+                }
+            }
 
             // Temporarily make the imageSourceDiv visible off-screen for html2canvas to render correctly
-            // html2canvas works best when the element is part of the DOM layout, even if hidden visually.
-            // We set its position to absolute and far off-screen to prevent it from affecting the layout.
-            // Its fixed width and height ensure the generated image has consistent dimensions.
             imageSourceDiv.style.position = 'absolute';
             imageSourceDiv.style.left = '-9999px';
             imageSourceDiv.style.top = '-9999px';
             imageSourceDiv.style.display = 'flex'; // Ensure flex properties are applied for centering content
+            imageSourceDiv.style.height = 'auto'; // Allow height to adjust for content
 
             try {
                 // Use html2canvas to render the imageSourceDiv into a canvas
                 const canvas = await html2canvas(imageSourceDiv, {
                     scale: 2, // Increase scale for better image quality (e.g., 2x resolution)
-                    useCORS: true, // Important if you were loading external images (not needed here but good practice)
-                    backgroundColor: null, // Allow background from CSS to be rendered
-                    logging: false // Disable logging to console
+                    useCORS: true,
+                    backgroundColor: null,
+                    logging: false
                 });
 
                 // Convert the canvas content to a PNG data URL
@@ -260,17 +503,17 @@
 
                 // Set the download link
                 downloadImageButton.href = imageDataUrl;
-                downloadImageButton.download = `generated_image_${Date.now()}.png`; // Unique filename
+                downloadImageButton.download = `form_data_image_${Date.now()}.png`; // Unique filename
 
             } catch (error) {
                 console.error('Error generating image:', error);
                 // Use a custom message box instead of alert()
                 const errorMessageDiv = document.createElement('div');
-                errorMessageDiv.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center';
+                errorMessageDiv.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50';
                 errorMessageDiv.innerHTML = `
                     <div class="bg-white p-6 rounded-lg shadow-xl text-center">
-                        <p class="text-red-600 mb-4">Failed to generate image. Please try again.</p>
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="this.closest('.fixed').remove()">OK</button>
+                        <p class="text-red-600 mb-4">${translations[currentLang].errorMsg}</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="this.closest('.fixed').remove()">${translations[currentLang].okBtn}</button>
                     </div>
                 `;
                 document.body.appendChild(errorMessageDiv);
