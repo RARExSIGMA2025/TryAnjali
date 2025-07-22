@@ -145,7 +145,7 @@
         /* Styles for the hidden div that will be converted to an image */
         #imageSource {
             background-color: #ffffff; /* White background for the image content */
-            padding: 40px;
+            padding: 30px; /* Reduced padding for more compact look */
             border-radius: 12px;
             text-align: left;
             color: #1f2937;
@@ -153,93 +153,95 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            min-height: 800px; /* Ensure a decent size for the image */
+            /* Adjusted width and height for A4 / compressed card view */
+            width: 595px; /* Approx width of A4 at 72dpi (595px x 842px) */
+            min-height: 842px; /* Min height of A4 at 72dpi */
             box-sizing: border-box;
             position: absolute;
             left: -9999px;
             top: -9999px;
-            width: 800px; /* Fixed width for consistent image size */
-            height: auto; /* Height will adjust based on content */
+            height: auto; /* Height will adjust based on content, but min-height ensures base size */
             overflow: hidden;
-            font-size: 1rem; /* Base font size for image content */
-            line-height: 1.5;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Shadow for the image itself */
+            font-size: 0.9rem; /* Smaller base font size for image content */
+            line-height: 1.4; /* Slightly tighter line height */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             border: 1px solid #e5e7eb;
         }
 
         #imageSource .image-header {
             width: 100%;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px; /* Reduced margin */
         }
 
         #imageSource .image-header h3 {
-            font-size: 2.5rem;
+            font-size: 1.8rem; /* Smaller header font size */
             font-weight: 700;
             color: #0c4a6e;
-            margin-bottom: 10px;
+            margin-bottom: 5px; /* Reduced margin */
         }
 
         #imageSource .image-header p {
-            font-size: 1.2rem;
+            font-size: 0.9rem; /* Smaller subtitle font size */
             color: #4b5563;
         }
 
         #imageSource .image-section-output {
             width: 100%;
-            margin-bottom: 25px;
-            padding: 20px;
+            margin-bottom: 15px; /* Reduced margin between sections */
+            padding: 15px; /* Reduced padding */
             border: 1px solid #e5e7eb;
             border-radius: 8px;
-            background-color: #f9fafb; /* Light background for sections in image */
+            background-color: #f9fafb;
         }
 
         #imageSource .image-section-output h4 {
-            font-size: 1.3rem;
+            font-size: 1.1rem; /* Smaller section title font size */
             font-weight: 600;
             color: #1f2937;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
+            margin-bottom: 10px; /* Reduced margin */
+            padding-bottom: 6px; /* Reduced padding */
             border-bottom: 1px solid #d1d5db;
         }
 
         #imageSource .image-field-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
-            flex-wrap: wrap; /* Allow wrapping on small image sizes */
+            margin-bottom: 5px; /* Reduced margin between fields */
+            flex-wrap: wrap;
         }
 
         #imageSource .image-field-row .label-col {
             font-weight: 500;
             color: #4b5563;
-            flex-basis: 40%; /* Adjust label width */
+            flex-basis: 45%; /* Adjusted label width */
             text-align: left;
-            padding-right: 10px;
+            padding-right: 8px;
         }
 
         #imageSource .image-field-row .value-col {
             font-weight: 600;
             color: #1f2937;
-            flex-basis: 60%; /* Adjust value width */
+            flex-basis: 55%; /* Adjusted value width */
             text-align: right;
+            word-break: break-all; /* Ensure long values break */
         }
 
         /* Specific adjustments for full-width fields in image */
         #imageSource .image-field-full-width {
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
         #imageSource .image-field-full-width .label-col {
             width: 100%;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         #imageSource .image-field-full-width .value-col {
             width: 100%;
             text-align: left;
             background-color: #e5e7eb;
-            padding: 8px 12px;
+            padding: 6px 10px; /* Reduced padding */
             border-radius: 4px;
-            word-wrap: break-word; /* Ensure long addresses wrap */
+            word-wrap: break-word;
         }
 
         /* Responsive adjustments for form */
@@ -269,26 +271,26 @@
 
             /* Responsive adjustments for imageSource (generated image) */
             #imageSource {
-                width: 380px; /* Smaller fixed width for mobile image */
-                min-height: 500px;
-                padding: 25px;
-                font-size: 0.85rem;
+                width: 320px; /* Even smaller fixed width for mobile image to simulate card */
+                min-height: 450px; /* Adjust height */
+                padding: 15px; /* Reduced padding */
+                font-size: 0.8rem; /* Even smaller font size */
             }
 
             #imageSource .image-header h3 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
 
             #imageSource .image-header p {
-                font-size: 1rem;
+                font-size: 0.8rem;
             }
 
             #imageSource .image-section-output {
-                padding: 15px;
+                padding: 10px; /* Further reduced padding */
             }
 
             #imageSource .image-section-output h4 {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
 
             #imageSource .image-field-row {
@@ -304,7 +306,7 @@
                 padding-right: 0;
             }
             #imageSource .image-field-row .value-col {
-                margin-top: 4px; /* Space between stacked label and value */
+                margin-top: 2px; /* Space between stacked label and value */
             }
         }
     </style>
