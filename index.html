@@ -3,756 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anjali Group India - Investment Form</title>
-    <!-- Google Fonts for Orbitron (for header) and Inter (for body) -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Image Generator Form</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Custom styles for the body and container */
         body {
-            font-family: 'Inter', sans-serif; /* Using Inter as the primary font */
-            background: #f3f4f6; /* Light gray background */
-            margin: 0;
-            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
-        }
-        header {
-            background: #047857; /* Dark green */
-            color: white;
-            padding: 1.5rem 1rem; /* Increased padding */
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem; /* Slightly larger font */
-            width: 100%;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .form-container {
-            display: grid;
-            gap: 1.5rem; /* Increased gap */
-            max-width: 900px;
-            width: 95%; /* Make it slightly narrower on large screens */
-            margin: 2rem auto;
-            padding: 2.5rem; /* Increased padding */
-            background: white;
-            border-radius: 12px; /* More rounded corners */
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15); /* Stronger, softer shadow */
-        }
-        .card {
-            border: 1px solid #e2e8f0; /* Lighter border */
-            border-radius: 8px; /* Rounded corners */
-            padding: 1.5rem; /* Increased padding */
-            background: #fdfdfe; /* Very light background */
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Subtle shadow for cards */
-        }
-        .card h2 {
-            font-size: 1.75rem; /* Larger heading */
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 1.25rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid #047857; /* Green underline */
-        }
-        .card label {
-            font-weight: 600; /* Bolder labels */
-            display: block;
-            margin-bottom: 0.5rem; /* More space below labels */
-            color: #4a5568; /* Darker gray for labels */
-        }
-        .card input, .card select, .card textarea {
-            width: 100%;
-            padding: 0.75rem; /* More padding */
-            margin-bottom: 1rem; /* Consistent margin */
-            border-radius: 6px; /* Rounded input fields */
-            border: 1px solid #cbd5e0; /* Light gray border */
-            font-size: 1rem;
-            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        .card input:focus, .card select:focus, .card textarea:focus {
-            outline: none;
-            border-color: #047857; /* Green focus border */
-            box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.2); /* Soft green focus ring */
-        }
-        .card input[readonly] {
-            background-color: #edf2f7; /* Lighter background for readonly */
-            cursor: not-allowed;
-        }
-        .submit-btn {
-            background: #047857; /* Dark green */
-            color: white;
-            padding: 1rem 2rem; /* Larger padding */
-            border: none;
-            border-radius: 8px; /* More rounded */
-            font-size: 1.15rem; /* Larger font */
-            font-weight: 700;
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-            box-shadow: 0 4px 15px rgba(4, 120, 87, 0.3); /* Green shadow */
-            display: block; /* Make it a block element */
-            width: fit-content; /* Fit content width */
-            margin: 1.5rem auto 0; /* Center horizontally with top margin */
-        }
-        .submit-btn:hover {
-            background: #03664a; /* Darker green on hover */
-            transform: translateY(-2px);
-        }
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-        .error-message {
-            color: #dc2626; /* Red for errors */
-            font-size: 0.875rem;
-            margin-top: -0.75rem; /* Adjust margin to be closer to input */
-            margin-bottom: 1rem;
-            display: none; /* Hidden by default */
-        }
-        /* Custom Message Box Styling */
-        #messageBox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        }
-        #messageBox.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        #messageBoxContentWrapper {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            animation: fadeInScale 0.3s ease-out;
-        }
-        #messageBoxTitle {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        #messageBoxMessage {
-            font-size: 1rem;
-            color: #555;
-            margin-bottom: 1.5rem;
-        }
-        #messageBoxClose {
-            background-color: #047857;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.2s;
-        }
-        #messageBoxClose:hover {
-            background-color: #03664a;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .container {
+            background-color: #ffffff; /* White background for the card */
+            padding: 32px;
+            border-radius: 12px; /* More rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+            width: 100%;
+            max-width: 560px; /* Slightly wider */
+            text-align: center;
+            border: 1px solid #e5e7eb; /* Light border */
+        }
+
+        h1, h2 {
+            color: #1f2937; /* Darker text for headings */
+            margin-bottom: 24px;
+            font-weight: 700; /* Bold headings */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4b5563; /* Medium gray text */
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%; /* Full width */
+            padding: 12px;
+            border: 1px solid #d1d5db; /* Light gray border */
+            border-radius: 8px; /* Rounded input fields */
+            box-sizing: border-box;
+            font-size: 1rem;
+            color: #374151; /* Darker text in inputs */
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3b82f6; /* Blue border on focus */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* Light blue shadow on focus */
+        }
+
+        button {
+            background-color: #3b82f6; /* Blue button */
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-top: 16px;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #2563eb; /* Darker blue on hover */
+            transform: translateY(-1px); /* Slight lift effect */
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #imageResult {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb; /* Light border at the top */
+        }
+
+        #generatedImage {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Styles for the hidden div that will be converted to an image */
+        #imageSource {
+            background-color: #e0f2fe; /* Light blue background for the image content */
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            color: #1e3a8a; /* Dark blue text */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px; /* Ensure a decent size for the image */
+            box-sizing: border-box;
+            /* Initially hidden, will be made visible briefly for html2canvas */
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 600px; /* Fixed width for consistent image size */
+            height: 350px; /* Fixed height for consistent image size */
+            overflow: hidden; /* Hide overflow if text is too long */
+        }
+
+        #imageSource h3 {
+            font-size: 2.5rem; /* Larger title in the image */
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            color: #0c4a6e; /* Even darker blue for title */
+        }
+
+        #imageSource p {
+            font-size: 1.4rem; /* Larger message in the image */
+            line-height: 1.5;
+            color: #155e75; /* Slightly lighter blue for message */
+            max-width: 90%;
+            word-wrap: break-word; /* Ensure long words wrap */
         }
 
         /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .form-container {
-                padding: 1.5rem;
-                margin: 1rem auto;
+        @media (max-width: 640px) {
+            .container {
+                padding: 24px;
+                margin: 10px;
             }
-            .card {
-                padding: 1rem;
+
+            h1 {
+                font-size: 1.8rem;
             }
-            .card h2 {
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-            }
-            .card input, .card select, .card textarea {
-                padding: 0.6rem;
-                font-size: 0.95rem;
-            }
-            .submit-btn {
-                padding: 0.8rem 1.5rem;
+
+            button {
+                padding: 10px 20px;
                 font-size: 1rem;
+            }
+
+            #imageSource {
+                width: 320px; /* Smaller fixed width for mobile image */
+                height: 200px; /* Smaller fixed height for mobile image */
+                padding: 20px;
+            }
+
+            #imageSource h3 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            #imageSource p {
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-    <header>Anjali Group India - Investment Portal</header>
+    <div class="container">
+        <h1 class="text-3xl font-bold">Generate Your Custom Image</h1>
 
-    <form class="form-container" id="investmentForm">
-        <!-- Personal Details Section -->
-        <div class="card">
-            <h2>Personal Details</h2>
-            <div>
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" pattern="[A-Za-z\s]+" title="Alphabets only" required />
-                <p id="fullNameError" class="error-message">Full Name is required and must contain only alphabets.</p>
+        <form id="imageForm">
+            <div class="form-group">
+                <label for="title">Title for Image:</label>
+                <input type="text" id="title" name="title" placeholder="e.g., Daily Reminder" required>
             </div>
-            <div>
-                <label for="mobileNumber">Mobile Number</label>
-                <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="e.g., 9876543210" pattern="[0-9]{10}" title="Exactly 10 digits" required />
-                <p id="mobileNumberError" class="error-message">Mobile Number is required and must be 10 digits.</p>
+            <div class="form-group">
+                <label for="message">Message for Image:</label>
+                <textarea id="message" name="message" rows="5" placeholder="e.g., Don't forget to take a break and relax!" required></textarea>
             </div>
-            <div>
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="e.g., example@domain.com" required />
-                <p id="emailError" class="error-message">Email is required and must be a valid email address.</p>
-            </div>
-            <div>
-                <label for="aadharCard">Aadhar Card Number</label>
-                <input type="text" id="aadharCard" name="aadharCard" placeholder="e.g., 123456789012" pattern="\d{12}" title="Exactly 12 digits" required />
-                <p id="aadharCardError" class="error-message">Aadhar Card Number is required and must be 12 digits.</p>
-            </div>
-            <div>
-                <label for="panCard">PAN Card Number</label>
-                <!-- Pattern updated for case-insensitivity -->
-                <input type="text" id="panCard" name="panCard" placeholder="e.g., ABCDE1234F" pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}" title="Format: 5 letters + 4 digits + 1 letter" required />
-                <p id="panCardError" class="error-message">PAN Card Number is required and must follow the format (e.g., ABCDE1234F).</p>
-            </div>
-        </div>
+            <button type="submit">Generate Image</button>
+        </form>
 
-        <!-- Investment Details Section -->
-        <div class="card">
-            <h2>Investment Details</h2>
-            <div>
-                <label for="investmentCategory">Investment Category</label>
-                <select id="investmentCategory" name="investmentCategory" required>
-                    <option value="">Select Category</option>
-                    <option value="Scholarship & Education">Scholarship & Education</option>
-                    <option value="Skill Development">Skill Development</option>
-                    <option value="Petro & Energy">Petro & Energy</option>
-                    <option value="Royalty & Business">Royalty & Business</option>
-                    <option value="Assets & Tech">Assets & Tech</option>
-                    <option value="Marriage Aid">Marriage Aid</option>
-                </select>
-                <p id="investmentCategoryError" class="error-message">Investment Category is required.</p>
-            </div>
-            <div>
-                <label for="investmentPlan">Investment Plan</label>
-                <select id="investmentPlan" name="investmentPlan" required disabled>
-                    <option value="">Select Plan</option>
-                </select>
-                <p id="investmentPlanError" class="error-message">Investment Plan is required.</p>
-            </div>
-            <div>
-                <label for="quantity">Quantity</label>
-                <input type="number" id="quantity" name="quantity" value="1" min="1" required />
-                <p id="quantityError" class="error-message">Quantity is required and must be at least 1.</p>
-            </div>
-            <div>
-                <label for="totalInvestmentAmount">Total Investment Amount (₹)</label>
-                <input type="text" id="totalInvestmentAmount" name="totalInvestmentAmount" value="0" readonly />
-            </div>
-        </div>
-
-        <!-- Payment Section -->
-        <div class="card">
-            <h2>Payment Details</h2>
-            <div>
-                <label for="paymentMode">Payment Mode</label>
-                <select id="paymentMode" name="paymentMode" required>
-                    <option value="">Select Payment Mode</option>
-                    <option value="UPI">UPI</option>
-                    <option value="Bank Transfer">Bank Transfer</option>
-                    <option value="Cash">Cash</option>
-                </select>
-                <p id="paymentModeError" class="error-message">Payment Mode is required.</p>
-            </div>
-            <div>
-                <label for="referralSponsorName">Referral/Sponsor Name</label>
-                <input type="text" id="referralSponsorName" name="referralSponsorName" placeholder="e.g., Ram Nivas Gupta" required />
-                <p id="referralSponsorNameError" class="error-message">Referral/Sponsor Name is required.</p>
-            </div>
-        </div>
-
-        <!-- Address Section -->
-        <div class="card">
-            <h2>Address Details</h2>
-            <div>
-                <label for="stateSelect">State</label>
-                <select id="stateSelect" name="state" required>
-                    <option value="">Select State</option>
-                    <!-- States will be populated by JavaScript -->
-                </select>
-                <p id="stateSelectError" class="error-message">State is required.</p>
-            </div>
-            <div>
-                <label for="districtSelect">District</label>
-                <select id="districtSelect" name="district" required disabled>
-                    <option value="">Select District</option>
-                    <!-- Districts will be populated by JavaScript -->
-                </select>
-                <p id="districtSelectError" class="error-message">District is required.</p>
-            </div>
-            <div>
-                <label for="fullAddress">Full Address</label>
-                <textarea id="fullAddress" name="fullAddress" rows="3" placeholder="Enter your full address" required></textarea>
-                <p id="fullAddressError" class="error-message">Full Address is required.</p>
-            </div>
-        </div>
-
-        <!-- Upload Section - MODIFIED: 'required' attribute removed for file inputs -->
-        <div class="card">
-            <h2>Upload Documents (Optional for Form, Mandatory via WhatsApp)</h2>
-            <div>
-                <label for="uploadAadhar">Upload Aadhar Card (PDF, JPG, PNG)</label>
-                <input type="file" id="uploadAadhar" name="uploadAadhar" accept=".pdf,.jpg,.png" />
-                <p id="uploadAadharError" class="error-message">Invalid file type. Accepted: PDF, JPG, PNG.</p>
-            </div>
-            <div>
-                <label for="uploadPAN">Upload PAN Card (PDF, JPG, PNG)</label>
-                <input type="file" id="uploadPAN" name="uploadPAN" accept=".pdf,.jpg,.png" />
-                <p id="uploadPANError" class="error-message">Invalid file type. Accepted: PDF, JPG, PNG.</p>
-            </div>
-            <div>
-                <label for="uploadPhoto">Upload Passport Size Photo (JPG, PNG)</label>
-                <input type="file" id="uploadPhoto" name="uploadPhoto" accept=".jpg,.png" />
-                <p id="uploadPhotoError" class="error-message">Invalid file type. Accepted: JPG, PNG.</p>
-            </div>
-            <div>
-                <label for="uploadPassbook">Upload Bank Passbook Front Page (PDF, JPG, PNG)</label>
-                <input type="file" id="uploadPassbook" name="uploadPassbook" accept=".pdf,.jpg,.png" />
-                <p id="uploadPassbookError" class="error-message">Invalid file type. Accepted: PDF, JPG, PNG.</p>
-            </div>
-            <p style="font-size: 0.9rem; color: #666;">*Note: Document uploads on this form are optional. However, it is **mandatory** to send all required documents (Aadhar Card, PAN Card, Passport Size Photo, Bank Passbook Front Page) manually via WhatsApp to complete your application.</p>
-        </div>
-
-        <!-- Bank Details Section -->
-        <div class="card">
-            <h2>Bank Details</h2>
-            <div>
-                <label for="bankAccountNumber">Bank Account Number</label>
-                <input type="text" id="bankAccountNumber" name="bankAccountNumber" pattern="\d+" title="Digits only" required />
-                <p id="bankAccountNumberError" class="error-message">Bank Account Number is required and must contain only digits.</p>
-            </div>
-            <div>
-                <label for="accountHolderName">Account Holder Name</label>
-                <input type="text" id="accountHolderName" name="accountHolderName" required />
-                <p id="accountHolderNameError" class="error-message">Account Holder Name is required.</p>
-            </div>
-            <div>
-                <label for="ifscCode">IFSC Code</label>
-                <!-- Pattern updated for case-insensitivity -->
-                <input type="text" id="ifscCode" name="ifscCode" pattern="[A-Za-z]{4}0[A-Za-z0-9]{6}" title="Format: ABCD0XXXXXX" required />
-                <p id="ifscCodeError" class="error-message">IFSC Code is required and must follow the format (e.g., ABCD0XXXXXX).</p>
-            </div>
-            <div>
-                <label for="branchName">Branch Name</label>
-                <input type="text" id="branchName" name="branchName" required />
-                <p id="branchNameError" class="error-message">Branch Name is required.</p>
-            </div>
-        </div>
-
-        <button class="submit-btn" type="submit">Submit Form</button>
-    </form>
-
-    <!-- Custom Message Box HTML -->
-    <div id="messageBox">
-        <div id="messageBoxContentWrapper">
-            <h3 id="messageBoxTitle"></h3>
-            <p id="messageBoxMessage"></p>
-            <button id="messageBoxClose">OK</button>
+        <div id="imageResult" class="hidden">
+            <h2 class="text-2xl font-semibold mt-8">Generated Image Preview:</h2>
+            <img id="generatedImage" src="" alt="Generated Image" class="mt-5">
+            <a id="downloadImage" href="#" download="generated_image.png" class="inline-block mt-6 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
+                Download Image
+            </a>
         </div>
     </div>
 
+    <!-- This hidden div will be used by html2canvas to create the image -->
+    <div id="imageSource">
+        <h3 id="imageSourceTitle"></h3>
+        <p id="imageSourceMessage"></p>
+    </div>
+
+    <!-- html2canvas library from CDN -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
     <script>
-        // Investment Plan Data (from previous turn, comprehensive)
-        const investmentPlanData = {
-            "Scholarship & Education": [
-                { plan: "Scholarship", amount: 3000 },
-                { plan: "Spacial Scholarship", amount: 5500 },
-                { plan: "A.F.M. Scholarship", amount: 12500 },
-                { plan: "New Gurukul", amount: 5500 }
-            ],
-            "Skill Development": [
-                { plan: "Silai Prashikshan", amount: 3000 },
-                { plan: "Spacial Silai", amount: 5500 }
-            ],
-            "Petro & Energy": [
-                { plan: "Petro Subsidy Card", amount: 5500 }
-            ],
-            "Royalty & Business": [
-                { plan: "Royalty Club", amount: 12500 },
-                { plan: "Associate", amount: 12500 },
-                { plan: "Hamsafar (12500×10)", amount: 125000 }
-            ],
-            "Assets & Tech": [
-                { plan: "Laptop", amount: 12500 }
-            ],
-            "Marriage Aid": [
-                { plan: "Shadi Anudaan", amount: 30000 }
-            ]
-        };
+        // Get references to DOM elements
+        const imageForm = document.getElementById('imageForm');
+        const imageResultDiv = document.getElementById('imageResult');
+        const generatedImage = document.getElementById('generatedImage');
+        const downloadImageButton = document.getElementById('downloadImage');
+        const imageSourceDiv = document.getElementById('imageSource');
+        const imageSourceTitle = document.getElementById('imageSourceTitle');
+        const imageSourceMessage = document.getElementById('imageSourceMessage');
 
-        // Parsed State and District Data (from previous turn, comprehensive)
-        const statesAndDistricts = {
-            "Andman & Nicobar Island": ["ANDAMAN_NICOBAR_IS"],
-            "Andhra Pradesh": ["ADILABAD", "ANANTAPUR", "CHITTOOR", "EAST_GODAVARI", "GUNTUR", "HYDERABAD", "Kadapa", "KARIMNAGAR", "KHAMMAM/BHADRACHALAM", "KRISHNA", "KURNOOL", "MAHBUBNAGAR", "MEDAK", "NALGONDA", "NELLORE", "NIZAMABAD", "PRAKASAM", "RANGAREDDI", "SRIKAKULAM", "VISAKHAPATNAM", "VIZIANAGARAM", "WARANGAL", "WEST GODAVARI"],
-            "Arunachal Pradesh": ["ANJAW", "CHANGLANG", "EAST KAMENG", "EAST SIANG", "KURUNG KUMEY", "LOHIT", "LOWER DIBANG VALLEY", "LOWER SUBANSIRI", "PAPUM PARE", "TAWANG", "TIRAP", "UPPER DIBANG VALLEY", "UPPER SIANG", "UPPER SUBANSIRI", "WEST KAMENG", "WEST SIANG"],
-            "Assam": ["BAKSA", "BARPETA", "BONGAIGAON", "CACHAR", "CHIRANG", "DARRANG", "DHEMAJI", "DHUBRI", "DIBRUGARH", "GOALPARA", "GOLAGHAT", "HAILAKANDI", "JORHAT", "KAMRUP", "KARBI ANGLONG", "KARIMGANJ", "KOKRAJHAR", "LAKHIMPUR", "MARIGAON", "NAGAON", "NALBARI", "NORTH_CACHAR_HILLS", "SIBSAGAR", "SONITPUR", "TINSUKIA", "UDALGURI"],
-            "Bihar": ["ARARIA", "ARWAL", "AURANGABAD-BI", "BANKA", "BEGUSARAI", "BHAGALPUR", "BHOJPUR", "BUXAR", "DARBHANGA", "EAST CHAMPARAN", "GAYA", "GOPALGANJ", "JAMUI", "JEHANABAD", "KAIMUR", "KATIHAR", "KHAGARIA", "KISHANGANJ", "LAKHISARAI", "MADHEPURA", "MADHUBANI", "MUNGER", "MUZAFFARPUR", "NALANDA", "NAWADA", "PATNA", "PURNIA", "ROHTAS", "SAHARSA", "SAMASTIPUR", "SARAN", "SHEIKHPURA", "SHEOHAR", "SITAMARHI", "SIWAN", "SUPAUL", "VAISHALI", "WEST CHAMPARAN"],
-            "Chattisgarh": ["BASTAR", "BILASPUR-CG", "DANTEWADA", "DHAMTARI", "DURG", "JANJGIR", "JASHPUR", "KANKER", "KAWARDHA/Kabir Dham", "KORBA", "KORIYA", "MAHASAMUND", "RAIGARH-CG", "RAIPUR", "RAJNANDGAON", "SURGUJA (Ambikapur)"],
-            "Chandigarh": ["CHANDIGARH"],
-            "Daman & Diu": ["Daman", "DIU"],
-            "Delhi": ["Central", "CITY ZONE", "Civili Line", "Karol Bagh", "Najafgarh", "NARELA", "Rohini", "S. Pahar Ganj", "Shahadra (N)", "Shahadra (S)", "SOUTH", "West"],
-            "Dadar & Nagar Havali": ["DADRA & NAGAR HAVELI"],
-            "Goa": ["GOA"],
-            "Gujarat": ["Ahmedabad", "Amreli", "Anand", "Banaskantha", "Bharuch", "Bhavnagar", "Dahod", "Dang", "Gandhinagar", "Godhara", "Jamnagar", "Junagadh", "Kheda", "Kutch", "Mahesana", "Narmada", "Navsari", "Patan", "Porbandar", "Rajkot", "Sabarkantha", "Surat", "Surendranagar", "Vadodara", "Valsad", "Tapi"],
-            "Himachal Pradesh": ["BILASPUR-HP", "CHAMBA", "HAMIRPUR-HP", "KANGRA", "KULLU", "MANDI", "SHIMLA", "SIRMAUR", "SOLAN", "UNA"],
-            "Haryana": ["AMBALA", "BHIWANI", "FARIDABAD", "FATEHABAD", "GURGAON", "HISAR", "JHAJJAR", "JIND", "KAITHAL", "KARNAL", "KURUKSHETRA", "MEWAT", "NARNAUL", "PALWAL", "PANCHKULA", "PANIPAT", "REWARI", "ROHTAK", "SIRSA", "SONIPAT", "YAMUNANAGAR"],
-            "Jharkhand": ["BOKARO", "CHATRA", "DEOGARH", "DHANBAD", "DUMKA", "EAST SINGHBHUM", "GARHWA", "GIRIDIH", "GODDA", "GUMLA", "HAZARIBAGH", "JAMTARA", "KODARMA", "LATHEHAR", "LOHARDAGA", "PAKUR", "PALAMU", "RANCHI", "SAHIBGANJ", "SARAIKELA-KHARSAWAN", "SIMDEGA", "WEST SINGHBHUM"],
-            "Jammu & Kashmir": ["BARAMULA", "DODA", "JAMMU", "KATHUA", "KISHTWAR", "POONCH", "RAJOURI", "RAMBAN", "REASI", "SAMBHA", "UDHAMPUR"],
-            "Karnataka": ["BAGALKOT", "BANGALORE RURAL", "BANGALORE Urban", "BELGAUM", "BELLARY", "BIDAR", "BIJAPUR", "CHAMARAJANAGAR", "CHIKKABALLAPUR", "CHIKMAGALUR", "CHITRADURGA", "DAKSHINA KANNADA", "DAVANAGERE", "DHARWAD", "GADAG", "GULBARGA", "HASSAN", "HAVERI", "KODAGU", "KOLAR", "KOPPAL", "MANDYA", "MYSORE", "RAICHUR", "RAMANAGARA", "SHIMOGA", "TUMKUR", "UDUPI", "UTTARA KANNADA"],
-            "Kerala": ["ALAPPUZHA", "Ernakulam", "IDUKKI", "KANNUR", "KASARAGOD", "KOLLAM", "KOTTAYAM", "KOZHIKODE", "MALAPPURAM", "PALAKKAD", "PATHANAMTHITTA", "THIRUVANANTHAPURAM", "THRISSUR", "WAYANAD"],
-            "Lakshadweep": ["LAKSHADWEEP"],
-            "Meghalaya": ["BHOI", "EAST GARO HILLS", "EAST KHASI HILLS", "JAINTIA HILLS", "SOUTH GARO HILLS", "WEST GARO HILLS", "WEST KHASI HILLS"],
-            "Maharashtra": ["AHMEDNAGAR", "AKOLA", "AMARAVATI", "AURANGABAD", "BEED", "BHANDARA", "BULDANA", "CHANDRAPUR", "DHULE", "GADCHIROLI", "GONDIA", "HINGOLI", "JALGAON", "JALNA", "KOLHAPUR", "LATUR", "NAGPUR", "NANDED", "NANDURBAR", "NASIK", "OSMANABAD", "PARBHANI", "PUNE", "RAIGAD", "RATNAGIRI", "SANGLI", "SATARA", "SINDHUDURG", "SOLAPUR", "THANE", "WARDHA", "WASHIM", "YAWATMAL"],
-            "Manipur": ["BISHNUPUR", "CHANDEL", "CHURACHANDPUR", "IMPHAL EAST", "IMPHALWEST", "KANGPOKΡΙ", "SENAPATI", "TAMENGLONG", "THOUBAL", "UKHRUL"],
-            "Madhya Pradesh": ["Anupur", "ASHOK NAGAR", "BALAGHAT", "BARWANI", "BETUL", "BHIND", "BHOPAL", "BURHANPUR", "CHHATARPUR", "CHHINDWARA", "DAMOH", "DATIA", "DEWAS", "DHAR", "DINDORI", "GUNA", "GWALIOR", "HARDA", "HOSHANGABAD", "INDORE", "JABALPUR", "JHABUA", "KATNI", "KHANDWA", "KHARGONE", "MANDLA", "MANDSAUR", "MORENA", "NARSINGHPUR", "NEEMUCH", "PANNA", "RAISEN", "RAJGARH", "RATLAM", "REWA", "SAGAR", "SATNA", "SEONI", "SHAHDOL", "SHAJAPUR", "SHEOPUR", "SHIVPURI", "SIDHI", "TIKAMGARH", "UJJAIN", "UMARIA", "VIDISHA"],
-            "Mizoram": ["Aizawal West", "AIZAWL East", "CHAMPHAI", "KOLASIB", "LAWNGTLAI", "LUNGLEI", "MAMIT", "SAIHA", "SERCHHIP"],
-            "Nagaland": ["DIMAPUR", "KIPHIRE", "KOHIMA", "LONGLENG", "MOKOKCHUNG", "MON", "PEREN", "PHEK", "TUENSANG", "WOKHA", "ZUNHEBOTO"],
-            "Orissa": ["ANGUL", "BALANGIR", "BALESHWAR", "BARGARH", "BAUDH", "BHADRAK", "CUTTACK", "DEBAGARH", "DHENKANAL", "GAJAPATI", "GANJAM", "JAGATSINGHAPUR", "JAJPUR", "JHARSUGUDA", "KALAHANDI", "KANDHAMAL", "KENDRAPARA", "KEONJHAR", "KHURDA", "KORAPUT", "MALKANGIRI", "MAYURBHANJ", "NABARANGAPUR", "NAYAGARH", "NUAPADA", "PURI", "RAYAGADA", "SAMBALPUR", "SONAPUR/SUBARNAPUR", "SUNDARGARH"],
-            "Pondicherry": ["PONDICHERRY"],
-            "Punjab": ["AMRITSAR", "BATHINDA", "BARNALA", "FARIDKOT", "FATEGARH SAHIB", "FIROZPUR", "GURDASPUR", "HOSHIARPUR", "JALANDHAR", "KAPURTHALA", "LUDHIANA", "MANSA-PU", "MOGA", "MOHALI/SASNAGAR", "MUKATSAR", "NAWANSHAHR", "PATIALA", "RUPNAGAR/ROPAR", "SANGRUR", "TARN TARAN"],
-            "Rajasthan": ["AJMER", "ALWAR", "BANSWARA", "BARAN", "BARMER", "BHARATPUR", "BHILWARA", "BIKANER", "BUNDI", "CHITTAURGARH", "CHURU", "DAUSA", "DHAULPUR", "DUNGARPUR", "GANGANAGAR", "HANUMANGARH", "JAIPUR", "JAISALMER", "JALORE", "JHALAWAR", "JHUNJHUNUN", "JODHPUR", "KARAULI", "KOTA", "NAGAUR", "PALI", "PRATAPGARH", "RAJSAMAND", "SAWAI MADHOPUR", "SIKAR", "SIROHI", "TONK", "UDAIPUR"],
-            "Sikkim": ["EAST", "NORTH", "SOUTH", "WEST"],
-            "Tamilnadu": ["KANCHEEPURAM", "SAIDAPET", "THIRUVALLORE", "POONAMALLEE", "VELLORE", "THIRUPPATTUR", "TIRUVANNAMALAI", "CHEYYAR", "CUDDALORE", "VILLUPURAM", "KALLAKURICHI", "THANJAVUR", "THIRUVARUR", "NAGAPATTINAM", "THIRUCHIRAPALLI", "KARUR", "PERAMBALUR", "PUDUKOTTΑΙ", "ARANTHANGI", "MADURAI", "THENI", "DINDIGUL", "PALANI", "RAMANATHAPURAM", "PARAMAKUDI", "SIVAGANGA", "VIRUDHUNAGAR", "SIVAKASI", "THIRUNELVELI", "SANKARANKOIL", "THOOTHUKUDI", "KOVILPATTI", "NAGERCOIL", "SALEM", "NAMAKKAL", "DHARMAPURI", "KRISHNAGIRI", "COIMBATORE", "THIRUPPUR", "ERODE", "DHARAPURAM", "THE NILGIRIS", "CHENNAI CORP"],
-            "Tripura": ["EAST/DHALAI TRIPURA", "NORTH TRIPURA", "SOUTH TRIPURA", "WEST TRIPURA"],
-            "Uttar Pradesh": ["AGRA", "ALIGARH", "ALLAHABAD", "AMBEDKAR NAGAR", "AURAIYA", "AZAMGARH", "BAGHPAT", "BAHRAICH", "BALLIA", "BALRAMPUR", "BANDA", "BARABANKI", "BAREILLY", "BASTI", "BIJNOR", "BUDAUN", "BULANDSHAHAR", "CHANDAULI", "CHITRAKOOT", "DEORIA", "ETAH", "ETAWAH", "FARRUKHABAD", "FATEHPUR", "FIROZABAD", "GAUTAM_BUDH_NAGAR", "GHAZIABAD", "GHAZIPUR", "GONDA", "GORAKHPUR", "HAMIRPUR-UP", "HARDOI", "HATHRAS/MAHAMAYANAGAR", "JALAUN", "JAUNPUR", "JHANSI", "JYOTIBA PHULE_NAGAR", "KANNAUJ", "KANPUR NAGAR", "KANPUR DEHAT", "KAUSHAMBI", "KHERI", "KUSHINAGAR", "LALITPUR", "LUCKNOW", "MAHARAJGANJ", "MAHOBA", "MAINPURI", "MATHURA", "MAU", "MEERUT", "MIRZAPUR", "MORADABAD", "MUZAFFARNAGAR", "PILIBHIT", "PRATAPGARH", "RAEBARELI", "RAMPUR", "SAHARANPUR", "SANT KABIR NAGAR", "SANT RAVIDAS_NAGAR", "SHAHJAHANPUR", "SHRAVASTI", "SIDDHARTHNAGAR", "SITAPUR", "SONBHADRA", "SULTANPUR", "UNNAO", "VARANASI"],
-            "Uttrakhand": ["ALMORA", "BAGESHWAR", "CHAMOLI", "CHAMPAWAT", "DEHRADUN", "PAURI GARHWAL", "HARDWAR", "NAINITAL", "PITHORAGARH", "RUDRAPRAYAG", "TEHRI GARHWAL", "UDHAM SINGH NAGAR", "UTTARKASHI"],
-            "West Bengal": ["BANKURA", "BARDDHAMAN", "BIRBHUM", "COOCH BEHAR", "DAKSHIN DINAJPUR", "DARJILING", "EAST MEDINIPUR", "HAORA/HOWRAH", "HUGLY", "JALPAIGURI", "KOLKATA", "MALDAH", "MURSHIDABAD", "NADIA", "NORTH 24 PARGANAS", "PURULIYA", "SOUTH 24_PARGANAS", "UTTAR DINAJPUR", "WEST MEDNAPUR"]
-        };
-
-
-        // DOM Elements
-        const form = document.getElementById('investmentForm');
-        const investmentCategorySelect = document.getElementById('investmentCategory');
-        const investmentPlanSelect = document.getElementById('investmentPlan');
-        const quantityInput = document.getElementById('quantity');
-        const totalInvestmentAmountInput = document.getElementById('totalInvestmentAmount');
-        const stateSelect = document.getElementById('stateSelect');
-        const districtSelect = document.getElementById('districtSelect');
-
-        // Custom Message Box Elements
-        const messageBox = document.getElementById('messageBox');
-        const messageBoxTitle = document.getElementById('messageBoxTitle');
-        const messageBoxMessage = document.getElementById('messageBoxMessage');
-        const messageBoxCloseButton = document.getElementById('messageBoxClose');
-
-        /**
-         * Displays a custom message box.
-         * @param {string} type - 'success' or 'error'.
-         * @param {string} title - The title of the message box.
-         * @param {string} message - The content message.
-         */
-        function showMessage(type, title, message) {
-            messageBoxTitle.textContent = title;
-            messageBoxMessage.textContent = message;
-
-            if (type === 'success') {
-                messageBoxTitle.style.color = '#047857'; // Green
-            } else if (type === 'error') {
-                messageBoxTitle.style.color = '#dc2626'; // Red
-            }
-
-            messageBox.classList.add('visible');
-        }
-
-        // Event listener for closing the message box
-        messageBoxCloseButton.addEventListener('click', () => {
-            messageBox.classList.remove('visible');
-        });
-
-        /**
-         * Populates the Investment Plan dropdown based on the selected category.
-         */
-        function updateInvestmentPlans() {
-            const selectedCategory = investmentCategorySelect.value;
-            investmentPlanSelect.innerHTML = '<option value="">Select Plan</option>'; // Clear existing options
-            investmentPlanSelect.disabled = true; // Disable until a category is selected
-
-            if (selectedCategory && investmentPlanData[selectedCategory]) {
-                investmentPlanData[selectedCategory].forEach(plan => {
-                    const option = document.createElement('option');
-                    option.value = plan.plan;
-                    option.textContent = plan.plan;
-                    investmentPlanSelect.appendChild(option);
-                });
-                investmentPlanSelect.disabled = false; // Enable if plans are available
-            }
-            calculateTotalAmount(); // Recalculate total when plan options change
-            // Re-validate investment plan field after options are updated/enabled
-            validateField(investmentPlanSelect);
-        }
-
-        /**
-         * Calculates and displays the total investment amount.
-         */
-        function calculateTotalAmount() {
-            const selectedCategory = investmentCategorySelect.value;
-            const selectedPlanName = investmentPlanSelect.value;
-            const quantity = parseInt(quantityInput.value) || 0;
-
-            let planAmount = 0;
-            if (selectedCategory && selectedPlanName && investmentPlanData[selectedCategory]) {
-                const selectedPlan = investmentPlanData[selectedCategory].find(p => p.plan === selectedPlanName);
-                if (selectedPlan) {
-                    planAmount = selectedPlan.amount;
-                }
-            }
-            totalInvestmentAmountInput.value = (planAmount * quantity).toLocaleString('en-IN'); // Format as Indian Rupee
-        }
-
-        /**
-         * Populates the State dropdown.
-         */
-        function populateStates() {
-            stateSelect.innerHTML = '<option value="">Select State</option>'; // Clear existing options
-            const states = Object.keys(statesAndDistricts).sort(); // Sort states alphabetically
-            states.forEach(state => {
-                const option = document.createElement('option');
-                option.value = state;
-                option.textContent = state;
-                stateSelect.appendChild(option);
-            });
-            // Re-validate state field after population
-            validateField(stateSelect);
-            // Also reset and validate district when states are re-populated
-            populateDistricts(); // This will clear and disable districts
-        }
-
-        /**
-         * Populates the District dropdown based on the selected state.
-         */
-        function populateDistricts() {
-            const selectedState = stateSelect.value;
-            districtSelect.innerHTML = '<option value="">Select District</option>'; // Clear existing options
-            districtSelect.disabled = true; // Disable until a state is selected
-
-            if (selectedState && statesAndDistricts[selectedState]) {
-                const districts = statesAndDistricts[selectedState].sort(); // Sort districts alphabetically
-                districts.forEach(district => {
-                    const option = document.createElement('option');
-                    option.value = district;
-                    option.textContent = district;
-                    districtSelect.appendChild(option);
-                });
-                districtSelect.disabled = false; // Enable if districts are available
-            }
-            // Re-validate district field after options are updated/enabled
-            validateField(districtSelect);
-        }
-
-        /**
-         * Validates a single input field and shows/hides error messages.
-         * @param {HTMLElement} inputElement - The input element to validate.
-         * @returns {boolean} - True if valid, false otherwise.
-         */
-        function validateField(inputElement) {
-            const errorElement = document.getElementById(`${inputElement.id}Error`);
-            let isValid = true;
-            let errorMessage = '';
-
-            // Check for required fields (excluding file inputs now)
-            if (inputElement.hasAttribute('required') && inputElement.value.trim() === '' && inputElement.type !== 'file') {
-                isValid = false;
-                errorMessage = `${inputElement.previousElementSibling.textContent.replace('*', '').trim()} is required.`;
-            } else if (inputElement.type === 'email' && inputElement.value.trim() !== '' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputElement.value)) {
-                // Email format validation
-                isValid = false;
-                errorMessage = 'Please enter a valid email address.';
-            } else if (inputElement.hasAttribute('pattern') && inputElement.value.trim() !== '') {
-                // For pattern validation, use the pattern from the input
-                // The 'i' flag for case-insensitivity is handled by the HTML pattern itself
-                const regex = new RegExp(inputElement.pattern);
-                if (!regex.test(inputElement.value)) {
-                    isValid = false;
-                    errorMessage = inputElement.title || 'Invalid format.';
-                }
-            } else if (inputElement.type === 'file') {
-                // File input validation (only for file type if provided)
-                if (inputElement.files.length > 0) {
-                    const file = inputElement.files[0];
-                    const allowedTypes = inputElement.accept.split(',').map(type => type.trim());
-                    const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
-                    if (!allowedTypes.includes(fileExtension)) {
-                        isValid = false;
-                        errorMessage = `Invalid file type. Accepted: ${inputElement.accept}.`;
-                    }
-                }
-                // No 'required' check for file inputs here, as they are now optional on the form
-            } else if (inputElement.id === 'quantity' && (parseInt(inputElement.value) < 1 || isNaN(parseInt(inputElement.value)))) {
-                // Quantity specific validation
-                isValid = false;
-                errorMessage = 'Quantity must be at least 1.';
-            } else if (inputElement.id === 'investmentPlan' && investmentPlanSelect.disabled) {
-                // Investment Plan disabled check - This will only show if category is not selected AND field is disabled
-                isValid = false;
-                errorMessage = 'Please select an Investment Category first.';
-            } else if (inputElement.id === 'districtSelect' && districtSelect.disabled) {
-                // District disabled check - This will only show if state is not selected AND field is disabled
-                isValid = false;
-                errorMessage = 'Please select a State first.';
-            }
-
-            // Display or hide error message
-            if (errorElement) { // Check if errorElement exists
-                if (isValid) {
-                    errorElement.style.display = 'none';
-                } else {
-                    errorElement.textContent = errorMessage;
-                    errorElement.style.display = 'block';
-                }
-            }
-            return isValid;
-        }
-
-        /**
-         * Validates all form fields.
-         * @returns {boolean} - True if the entire form is valid, false otherwise.
-         */
-        function validateForm() {
-            let allValid = true;
-            const inputs = form.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                // Only validate visible inputs and those not readonly
-                if (input.offsetParent !== null && !input.readOnly) {
-                    if (!validateField(input)) {
-                        allValid = false;
-                    }
-                }
-            });
-            return allValid;
-        }
-
-        /**
-         * Creates the pre-filled WhatsApp message with enhanced styling.
-         * @param {FormData} formData - The form data.
-         * @returns {string} - The formatted message string.
-         */
-        function createWhatsAppMessage(formData) {
-    let message = "🟢 *𝐀𝐍𝐉𝐀𝐋𝐈 𝐆𝐑𝐎𝐔𝐏 𝐈𝐍𝐃𝐈𝐀 - 𝐈𝐍𝐕𝐄𝐒𝐓𝐌𝐄𝐍𝐓 𝐀𝐏𝐏𝐋𝐈𝐂𝐀𝐓𝐈𝐎𝐍* 🟢\n";
-    message += "📄 _Empowering Futures Through Trust_\n\n";
-    message += "---\n\n";
-
-    message += "🔹 *𝗣𝗘𝗥𝗦𝗢𝗡𝗔𝗟 𝗗𝗘𝗧𝗔𝗜𝗟𝗦* 🔹\n";
-    message += `👤 *Full Name:* ${formData.get('fullName')}\n`;
-    message += `📞 *Mobile Number:* ${formData.get('mobileNumber')}\n`;
-    message += `📧 *Email:* ${formData.get('email')}\n`;
-    message += `🆔 *Aadhar Card:* ${formData.get('aadharCard')}\n`;
-    message += `🪪 *PAN Card:* ${formData.get('panCard')}\n\n`;
-    message += "---\n\n";
-
-    message += "💼 *𝗜𝗡𝐕𝐄𝗦𝗧𝗠𝐄𝗡𝗧 𝗗𝗘𝗧𝗔𝗜𝗟𝗦* 💼\n";
-    message += `🏷️ *Investment Category:* ${formData.get('investmentCategory')}\n`;
-    message += `📋 *Investment Plan:* ${formData.get('investmentPlan')}\n`;
-    message += `🔢 *Quantity:* ${formData.get('quantity')}\n`;
-    message += `💰 *Total Investment Amount:* ₹${formData.get('totalInvestmentAmount')}\n\n`;
-    message += "---\n\n";
-
-    message += "💳 *𝗣𝗔𝗬𝗠𝗘𝗡𝗧 𝗗𝗘𝗧𝗔𝗜𝗟𝗦* 💳\n";
-    message += `💱 *Payment Mode:* ${formData.get('paymentMode')}\n`;
-    message += `🙋 *Referral/Sponsor Name:* ${formData.get('referralSponsorName')}\n\n`;
-    message += "---\n\n";
-
-    message += "📍 *𝗔𝗗𝗗𝗥𝗘𝗦𝗦 𝗗𝗘𝗧𝗔𝗜𝗟𝗦* 📍\n";
-    message += `🌐 *State:* ${formData.get('state')}\n`;
-    message += `🏙️ *District:* ${formData.get('district')}\n`;
-    message += `🏡 *Full Address:* ${formData.get('fullAddress')}\n\n`;
-    message += "---\n\n";
-
-    message += "🏦 *𝗕𝗔𝗡𝗞 𝗗𝗘𝗧𝗔𝗜𝗟𝗦* 🏦\n";
-    message += `🏧 *Bank Account Number:* ${formData.get('bankAccountNumber')}\n`;
-    message += `👤 *Account Holder Name:* ${formData.get('accountHolderName')}\n`;
-    message += `🔤 *IFSC Code:* ${formData.get('ifscCode')}\n`;
-    message += `🏢 *Branch Name:* ${formData.get('branchName')}\n\n`;
-    message += "---\n\n";
-
-    message += "📎 *𝗗𝗢𝗖𝗨𝗠𝗘𝗡𝗧 𝗨𝗣𝗟𝗢𝗔𝗗 𝗜𝗡𝗦𝗧𝗥𝗨𝗖𝗧𝗜𝗢𝗡𝗦* 📎\n";
-    message += "➡️ *Important:* Please send the following documents manually via WhatsApp to complete your application. These were *not* uploaded with the form:\n";
-    message += "- *Aadhar Card (PDF, JPG, or PNG)*\n";
-    message += "- *PAN Card (PDF, JPG, or PNG)*\n";
-    message += "- *Passport Size Photo (JPG or PNG)*\n";
-    message += "- *Bank Passbook Front Page (PDF, JPG, or PNG)*\n\n";
-    message += "---\n\n";
-
-    message += "📝 _Thank you for investing with Anjali Group India. Our team will connect with you shortly._\n\n";
-    message += "📲 _For support or queries, reply on WhatsApp or contact your sponsor._";
-
-    return encodeURIComponent(message);
-        }
-
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', () => {
-            populateStates(); // Populate states on page load and trigger validation
-            updateInvestmentPlans(); // Initialize investment plan dropdown and trigger validation
-            calculateTotalAmount(); // Initialize total amount
-        });
-
-        // Add change listeners for select elements to trigger updates and validation
-        investmentCategorySelect.addEventListener('change', updateInvestmentPlans);
-        investmentPlanSelect.addEventListener('change', calculateTotalAmount); // Calculate amount on plan change
-        investmentPlanSelect.addEventListener('change', () => validateField(investmentPlanSelect)); // Validate plan on change
-        quantityInput.addEventListener('input', calculateTotalAmount);
-        quantityInput.addEventListener('blur', () => validateField(quantityInput)); // Validate quantity on blur
-
-        stateSelect.addEventListener('change', populateDistricts);
-        stateSelect.addEventListener('change', () => validateField(stateSelect)); // Validate state on change
-        districtSelect.addEventListener('change', () => validateField(districtSelect)); // Validate district on change
-
-
-        // Add blur event listeners for real-time validation feedback for all inputs
-        const formInputs = form.querySelectorAll('input, select, textarea');
-        formInputs.forEach(input => {
-            // Apply blur validation to all relevant inputs
-            input.addEventListener('blur', () => validateField(input));
-            // For file inputs, also listen to change
-            if (input.type === 'file') {
-                input.addEventListener('change', () => validateField(input));
-            }
-        });
-
-
-        // Form Submission Handler
-        form.addEventListener('submit', (event) => {
+        // Add event listener for form submission
+        imageForm.addEventListener('submit', async function(event) {
             event.preventDefault(); // Prevent default form submission
 
-            if (validateForm()) {
-                const formData = new FormData(form);
-                const whatsappMessage = createWhatsAppMessage(formData);
-                // Ensure the WhatsApp number is correct and has the country code
-                const whatsappURL = `https://wa.me/919044022171?text=${whatsappMessage}`;
+            // Get values from the form
+            const title = document.getElementById('title').value;
+            const message = document.getElementById('message').value;
 
-                window.open(whatsappURL, '_blank'); // Open WhatsApp Web in a new tab
+            // Populate the hidden div with the content to be imaged
+            imageSourceTitle.textContent = title;
+            imageSourceMessage.textContent = message;
 
-                showMessage('success', 'Form Submitted!', 'Your application details have been prepared for WhatsApp. Please send the message from WhatsApp Web. **It is mandatory to manually attach your Aadhar, PAN card, Passport Size Photo, and Bank Passbook Front Page files via WhatsApp after sending the initial message.**');
-                // Optionally, clear the form after successful submission
-                // form.reset();
-                // updateInvestmentPlans(); // Reset investment plans
-                // populateDistricts(); // Reset districts
-            } else {
-                showMessage('error', 'Validation Error', 'Please correct the errors in the form before submitting.');
+            // Temporarily make the imageSourceDiv visible off-screen for html2canvas to render correctly
+            // html2canvas works best when the element is part of the DOM layout, even if hidden visually.
+            // We set its position to absolute and far off-screen to prevent it from affecting the layout.
+            // Its fixed width and height ensure the generated image has consistent dimensions.
+            imageSourceDiv.style.position = 'absolute';
+            imageSourceDiv.style.left = '-9999px';
+            imageSourceDiv.style.top = '-9999px';
+            imageSourceDiv.style.display = 'flex'; // Ensure flex properties are applied for centering content
+
+            try {
+                // Use html2canvas to render the imageSourceDiv into a canvas
+                const canvas = await html2canvas(imageSourceDiv, {
+                    scale: 2, // Increase scale for better image quality (e.g., 2x resolution)
+                    useCORS: true, // Important if you were loading external images (not needed here but good practice)
+                    backgroundColor: null, // Allow background from CSS to be rendered
+                    logging: false // Disable logging to console
+                });
+
+                // Convert the canvas content to a PNG data URL
+                const imageDataUrl = canvas.toDataURL('image/png');
+
+                // Display the generated image
+                generatedImage.src = imageDataUrl;
+                imageResultDiv.classList.remove('hidden'); // Show the image result section
+
+                // Set the download link
+                downloadImageButton.href = imageDataUrl;
+                downloadImageButton.download = `generated_image_${Date.now()}.png`; // Unique filename
+
+            } catch (error) {
+                console.error('Error generating image:', error);
+                // Use a custom message box instead of alert()
+                const errorMessageDiv = document.createElement('div');
+                errorMessageDiv.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center';
+                errorMessageDiv.innerHTML = `
+                    <div class="bg-white p-6 rounded-lg shadow-xl text-center">
+                        <p class="text-red-600 mb-4">Failed to generate image. Please try again.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="this.closest('.fixed').remove()">OK</button>
+                    </div>
+                `;
+                document.body.appendChild(errorMessageDiv);
+            } finally {
+                // Hide the imageSourceDiv again after rendering
+                imageSourceDiv.style.display = 'none';
             }
         });
     </script>
 </body>
 </html>
+
