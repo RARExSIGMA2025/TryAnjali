@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anjali Group India - Investment Portal</title>
+    <title>Personal Details Form</title>
     <!-- Tailwind CSS CDN for easy styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -144,170 +144,145 @@
 
         /* Styles for the hidden div that will be converted to an image */
         #imageSource {
-            background-color: #ffffff; /* White background for the image content */
-            padding: 30px; /* Reduced padding for more compact look */
-            border-radius: 12px;
+            background-color: #ffffff;
+            padding: 20px; /* Reduced padding for A4 look */
             text-align: left;
             color: #1f2937;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            /* Adjusted width and height for A4 / compressed card view */
-            width: 595px; /* Approx width of A4 at 72dpi (595px x 842px) */
-            min-height: 842px; /* Min height of A4 at 72dpi */
+            width: 794px; /* A4 width at 96 DPI */
+            min-height: 1123px; /* A4 height at 96 DPI */
             box-sizing: border-box;
             position: absolute;
             left: -9999px;
             top: -9999px;
-            height: auto; /* Height will adjust based on content, but min-height ensures base size */
+            height: auto;
             overflow: hidden;
-            font-size: 0.9rem; /* Smaller base font size for image content */
-            line-height: 1.4; /* Slightly tighter line height */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e5e7eb;
+            font-size: 0.8rem; /* Very small base font size for A4 */
+            line-height: 1.3; /* Tighter line height */
+            border: 1px solid #000; /* Overall border for the A4 page */
         }
 
-        #imageSource .image-header {
+        #imageSource .image-main-title {
             width: 100%;
             text-align: center;
-            margin-bottom: 25px; /* Reduced margin */
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #000;
         }
 
-        #imageSource .image-header h3 {
-            font-size: 1.8rem; /* Smaller header font size */
-            font-weight: 700;
-            color: #0c4a6e;
-            margin-bottom: 5px; /* Reduced margin */
-        }
-
-        #imageSource .image-header p {
-            font-size: 0.9rem; /* Smaller subtitle font size */
-            color: #4b5563;
-        }
-
-        #imageSource .image-section-output {
-            width: 100%;
-            margin-bottom: 15px; /* Reduced margin between sections */
-            padding: 15px; /* Reduced padding */
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            background-color: #f9fafb;
-        }
-
-        #imageSource .image-section-output h4 {
-            font-size: 1.1rem; /* Smaller section title font size */
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 10px; /* Reduced margin */
-            padding-bottom: 6px; /* Reduced padding */
-            border-bottom: 1px solid #d1d5db;
-        }
-
-        #imageSource .image-field-row {
+        #imageSource .hr-details {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px; /* Reduced margin between fields */
-            flex-wrap: wrap;
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 0.75rem;
+        }
+        #imageSource .hr-details div {
+            flex: 1;
+            padding: 5px 0;
+            border: 1px solid #000;
+            border-right: none;
+            text-align: center;
+        }
+        #imageSource .hr-details div:last-child {
+            border-right: 1px solid #000;
         }
 
-        #imageSource .image-field-row .label-col {
+        #imageSource .image-section {
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #000;
+        }
+
+        #imageSource .image-section-title {
+            background-color: #e0e0e0;
+            padding: 5px 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #000;
+        }
+
+        #imageSource .image-section-content {
+            padding: 5px 10px;
+        }
+
+        #imageSource .image-row {
+            display: flex;
+            width: 100%;
+            border-bottom: 1px solid #e0e0e0; /* Light border for rows */
+        }
+        #imageSource .image-row:last-child {
+            border-bottom: none;
+        }
+
+        #imageSource .image-cell {
+            flex: 1;
+            padding: 5px;
+            border-right: 1px solid #e0e0e0; /* Light border for cells */
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        #imageSource .image-cell:last-child {
+            border-right: none;
+        }
+
+        #imageSource .image-cell.half {
+            flex: 0.5; /* For two-column layout */
+        }
+        #imageSource .image-cell.quarter {
+            flex: 0.25; /* For four-column layout */
+        }
+        #imageSource .image-cell.third {
+            flex: 0.333; /* For three-column layout */
+        }
+        #imageSource .image-cell.full {
+            flex: 1;
+        }
+
+        #imageSource .image-label {
             font-weight: 500;
-            color: #4b5563;
-            flex-basis: 45%; /* Adjusted label width */
-            text-align: left;
-            padding-right: 8px;
+            margin-right: 5px;
+            white-space: nowrap; /* Prevent label from wrapping */
         }
 
-        #imageSource .image-field-row .value-col {
-            font-weight: 600;
-            color: #1f2937;
-            flex-basis: 55%; /* Adjusted value width */
-            text-align: right;
-            word-break: break-all; /* Ensure long values break */
+        #imageSource .image-value {
+            flex: 1;
+            word-wrap: break-word; /* Allow values to wrap */
         }
 
-        /* Specific adjustments for full-width fields in image */
-        #imageSource .image-field-full-width {
-            margin-bottom: 5px;
+        #imageSource .photo-box {
+            width: 120px;
+            height: 150px;
+            border: 1px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #555;
+            margin-left: auto; /* Push to right */
+            margin-bottom: 10px;
         }
-        #imageSource .image-field-full-width .label-col {
+
+        #imageSource .language-table {
             width: 100%;
-            margin-bottom: 4px;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.8rem;
         }
-        #imageSource .image-field-full-width .value-col {
-            width: 100%;
-            text-align: left;
-            background-color: #e5e7eb;
-            padding: 6px 10px; /* Reduced padding */
-            border-radius: 4px;
-            word-wrap: break-word;
+        #imageSource .language-table th,
+        #imageSource .language-table td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: center;
         }
-
-        /* Responsive adjustments for form */
-        @media (max-width: 640px) {
-            .container {
-                padding: 24px;
-                margin: 10px;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            .section-card {
-                padding: 16px;
-            }
-
-            .section-card h2 {
-                font-size: 1.2rem;
-                margin-bottom: 15px;
-            }
-
-            button[type="submit"] {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-
-            /* Responsive adjustments for imageSource (generated image) */
-            #imageSource {
-                width: 320px; /* Even smaller fixed width for mobile image to simulate card */
-                min-height: 450px; /* Adjust height */
-                padding: 15px; /* Reduced padding */
-                font-size: 0.8rem; /* Even smaller font size */
-            }
-
-            #imageSource .image-header h3 {
-                font-size: 1.5rem;
-            }
-
-            #imageSource .image-header p {
-                font-size: 0.8rem;
-            }
-
-            #imageSource .image-section-output {
-                padding: 10px; /* Further reduced padding */
-            }
-
-            #imageSource .image-section-output h4 {
-                font-size: 1rem;
-            }
-
-            #imageSource .image-field-row {
-                flex-direction: column; /* Stack label and value on small image */
-                align-items: flex-start;
-            }
-
-            #imageSource .image-field-row .label-col,
-            #imageSource .image-field-row .value-col {
-                flex-basis: auto;
-                width: 100%;
-                text-align: left;
-                padding-right: 0;
-            }
-            #imageSource .image-field-row .value-col {
-                margin-top: 2px; /* Space between stacked label and value */
-            }
+        #imageSource .language-table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -316,145 +291,273 @@
         <div class="flex justify-end mb-4">
             <button id="langToggle" class="bg-gray-200 text-gray-800 hover:bg-gray-300 px-4 py-2 rounded-md text-sm">Switch to Hindi</button>
         </div>
-        <h1 id="mainTitle" class="text-4xl font-extrabold text-blue-800">Anjali Group India - Investment Portal</h1>
+        <h1 id="mainTitle" class="text-4xl font-extrabold text-blue-800">Personal Details Form</h1>
 
         <form id="dataForm">
-            <!-- Personal Details Section -->
+            <!-- Employee Details Section -->
             <div class="section-card">
-                <h2 id="sectionTitlePersonal">Personal Details</h2>
+                <h2 id="sectionTitleEmployee">Employee Details</h2>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label id="labelFullName" for="fullName">Full Name:</label>
-                        <input type="text" id="fullName" name="fullName" placeholder="e.g., John Doe" required>
+                        <label id="labelEmployeeName" for="employeeName">Name:</label>
+                        <input type="text" id="employeeName" name="employeeName" placeholder="Enter employee name" required>
                     </div>
                     <div class="form-group">
-                        <label id="labelMobileNumber" for="mobileNumber">Mobile Number:</label>
-                        <input type="text" id="mobileNumber" name="mobileNumber" placeholder="e.g., 9876543210" required pattern="[0-9]{10}" title="Please enter a 10-digit mobile number">
+                        <label id="labelFatherName" for="fatherName">Father Name:</label>
+                        <input type="text" id="fatherName" name="fatherName" placeholder="Enter father's name" required>
                     </div>
                     <div class="form-group">
-                        <label id="labelEmailAddress" for="emailAddress">Email Address:</label>
-                        <input type="email" id="emailAddress" name="emailAddress" placeholder="e.g., example@domain.com" required>
+                        <label id="labelDateOfBirth" for="dateOfBirth">Date of Birth:</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" required>
                     </div>
                     <div class="form-group">
-                        <label id="labelAadharCardNumber" for="aadharCardNumber">Aadhar Card Number:</label>
-                        <input type="text" id="aadharCardNumber" name="aadharCardNumber" placeholder="e.g., 123456789012" required pattern="[0-9]{12}" title="Please enter a 12-digit Aadhar number">
+                        <label id="labelAge" for="age">Age:</label>
+                        <input type="number" id="age" name="age" min="18" max="100" placeholder="e.g., 30" required>
                     </div>
                     <div class="form-group">
-                        <label id="labelPANCardNumber" for="panCardNumber">PAN Card Number:</label>
-                        <input type="text" id="panCardNumber" name="panCardNumber" placeholder="e.g., ABCDE1234F" required pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" title="Please enter a valid 10-character PAN (e.g., ABCDE1234F)">
+                        <label id="labelAreaOfService" for="areaOfService">Area of Service:</label>
+                        <input type="text" id="areaOfService" name="areaOfService" placeholder="e.g., Sales" required>
                     </div>
-                </div>
-            </div>
-
-            <!-- Investment Details Section -->
-            <div class="section-card">
-                <h2 id="sectionTitleInvestment">Investment Details</h2>
-                <div class="form-grid">
                     <div class="form-group">
-                        <label id="labelInvestmentCategory" for="investmentCategory">Investment Category:</label>
-                        <select id="investmentCategory" name="investmentCategory" required>
-                            <option value="">Select Category</option>
-                            <option value="equity">Equity</option>
-                            <option value="debt">Debt</option>
-                            <option value="real_estate">Real Estate</option>
-                            <option value="mutual_funds">Mutual Funds</option>
+                        <label id="labelCaste" for="caste">Caste:</label>
+                        <input type="text" id="caste" name="caste" placeholder="Enter caste" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelBloodGroup" for="bloodGroup">Blood Group:</label>
+                        <input type="text" id="bloodGroup" name="bloodGroup" placeholder="e.g., A+" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelReligion" for="religion">Religion:</label>
+                        <input type="text" id="religion" name="religion" placeholder="e.g., Hindu" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelGender" for="gender">Gender:</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label id="labelInvestmentPlan" for="investmentPlan">Investment Plan:</label>
-                        <select id="investmentPlan" name="investmentPlan" required>
-                            <option value="">Select Plan</option>
-                            <option value="plan_a">Plan A</option>
-                            <option value="plan_b">Plan B</option>
-                            <option value="plan_c">Plan C</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label id="labelQuantity" for="quantity">Quantity:</label>
-                        <input type="number" id="quantity" name="quantity" value="1" min="1" required>
-                    </div>
-                    <div class="form-group">
-                        <label id="labelTotalInvestmentAmount" for="totalInvestmentAmount">Total Investment Amount (₹):</label>
-                        <input type="number" id="totalInvestmentAmount" name="totalInvestmentAmount" placeholder="0" min="0" required>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Payment Details Section -->
-            <div class="section-card">
-                <h2 id="sectionTitlePayment">Payment Details</h2>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label id="labelPaymentMode" for="paymentMode">Payment Mode:</label>
-                        <select id="paymentMode" name="paymentMode" required>
-                            <option value="">Select Payment Mode</option>
-                            <option value="online">Online Transfer</option>
-                            <option value="cheque">Cheque</option>
-                            <option value="cash">Cash</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label id="labelReferralSponsorName" for="referralSponsorName">Referral/Sponsor Name:</label>
-                        <input type="text" id="referralSponsorName" name="referralSponsorName" placeholder="e.g., Ram Niwas Gupta" required>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Address Details Section -->
-            <div class="section-card">
-                <h2 id="sectionTitleAddress">Address Details</h2>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label id="labelState" for="state">State:</label>
-                        <select id="state" name="state" required>
-                            <option value="">Select State</option>
-                            <option value="delhi">Delhi</option>
-                            <option value="maharashtra">Maharashtra</option>
-                            <option value="up">Uttar Pradesh</option>
-                            <option value="karnataka">Karnataka</option>
-                            <option value="tamil_nadu">Tamil Nadu</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label id="labelDistrict" for="district">District:</label>
-                        <select id="district" name="district" required>
-                            <option value="">Select District</option>
-                            <option value="new_delhi">New Delhi</option>
-                            <option value="mumbai">Mumbai</option>
-                            <option value="lucknow">Lucknow</option>
-                            <option value="bangalore">Bangalore</option>
-                            <option value="chennai">Chennai</option>
+                        <label id="labelMaritalStatus" for="maritalStatus">Marital Status:</label>
+                        <select id="maritalStatus" name="maritalStatus" required>
+                            <option value="">Select</option>
+                            <option value="single">Single</option>
+                            <option value="married">Married</option>
+                            <option value="divorced">Divorced</option>
+                            <option value="widowed">Widowed</option>
                         </select>
                     </div>
                     <div class="form-group full-width">
-                        <label id="labelFullAddress" for="fullAddress">Full Address:</label>
-                        <textarea id="fullAddress" name="fullAddress" rows="3" placeholder="Enter your full address" required></textarea>
+                        <label id="labelWorkExperience" for="workExperience">Work Experience:</label>
+                        <textarea id="workExperience" name="workExperience" rows="2" placeholder="e.g., 2 years in Sales" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelContactNo" for="contactNo">Contact No:</label>
+                        <input type="text" id="contactNo" name="contactNo" placeholder="e.g., 9876543210" required pattern="[0-9]{10}">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelPersonalEmailId" for="personalEmailId">Personal Email ID:</label>
+                        <input type="email" id="personalEmailId" name="personalEmailId" placeholder="e.g., email@example.com" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label id="labelPresentAddress" for="presentAddress">Present Address:</label>
+                        <textarea id="presentAddress" name="presentAddress" rows="2" placeholder="Enter present address" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label id="labelPermanentAddress" for="permanentAddress">Permanent Address:</label>
+                        <textarea id="permanentAddress" name="permanentAddress" rows="2" placeholder="Enter permanent address" required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Contact Details Section -->
+            <div class="section-card">
+                <h2 id="sectionTitleEmergency">Emergency Contact Details</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label id="labelECFullName" for="ecFullName">Full Name:</label>
+                        <input type="text" id="ecFullName" name="ecFullName" placeholder="e.g., Jane Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelECRelationship" for="ecRelationship">Relationship:</label>
+                        <input type="text" id="ecRelationship" name="ecRelationship" placeholder="e.g., Spouse" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label id="labelECAddress" for="ecAddress">Address:</label>
+                        <textarea id="ecAddress" name="ecAddress" rows="2" placeholder="Enter emergency contact address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelECContactNo" for="ecContactNo">Contact No:</label>
+                        <input type="text" id="ecContactNo" name="ecContactNo" placeholder="e.g., 9876543210" required pattern="[0-9]{10}">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelECNote" for="ecNote">Note:</label>
+                        <input type="text" id="ecNote" name="ecNote" placeholder="Any special notes">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post Details Section -->
+            <div class="section-card">
+                <h2 id="sectionTitlePost">Post Details</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label id="labelLocation" for="location">Location:</label>
+                        <input type="text" id="location" name="location" placeholder="e.g., Delhi" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelDepartment" for="department">Department:</label>
+                        <input type="text" id="department" name="department" placeholder="e.g., HR" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelJobDesignation" for="jobDesignation">Job Designation:</label>
+                        <input type="text" id="jobDesignation" name="jobDesignation" placeholder="e.g., Manager" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelJoiningDate" for="joiningDate">Joining Date:</label>
+                        <input type="date" id="joiningDate" name="joiningDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelCompanyId" for="companyId">Company ID:</label>
+                        <input type="text" id="companyId" name="companyId" placeholder="e.g., C12345" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelSkypeId" for="skypeId">Skype ID:</label>
+                        <input type="text" id="skypeId" name="skypeId" placeholder="e.g., live:john.doe">
+                    </div>
+                    <div class="form-group full-width">
+                        <label id="labelTechnicalSkills" for="technicalSkills">Technical Skills:</label>
+                        <textarea id="technicalSkills" name="technicalSkills" rows="2" placeholder="e.g., JavaScript, Python, SQL"></textarea>
                     </div>
                 </div>
             </div>
 
             <!-- Bank Details Section -->
             <div class="section-card">
-                <h2 id="sectionTitleBank">Bank Details</h2>
+                <h2 id="sectionTitleBank">Bank Details - Please ensure that you have a completed and SIGNED form</h2>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label id="labelBankAccountNumber" for="bankAccountNumber">Bank Account Number:</label>
-                        <input type="text" id="bankAccountNumber" name="bankAccountNumber" placeholder="Enter bank account number" required>
+                        <label id="labelAccountHoldersName" for="accountHoldersName">Account Holders Name:</label>
+                        <input type="text" id="accountHoldersName" name="accountHoldersName" placeholder="Enter account holder's name" required>
                     </div>
                     <div class="form-group">
-                        <label id="labelAccountHolderName" for="accountHolderName">Account Holder Name:</label>
-                        <input type="text" id="accountHolderName" name="accountHolderName" placeholder="Enter account holder name" required>
+                        <label id="labelAccountNumber" for="accountNumber">Account Number:</label>
+                        <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number" required>
                     </div>
                     <div class="form-group">
-                        <label id="labelIFSCCode" for="ifscCode">IFSC Code:</label>
-                        <input type="text" id="ifscCode" name="ifscCode" placeholder="Enter IFSC code" required pattern="[A-Z]{4}0[A-Z0-9]{6}" title="Please enter a valid IFSC code (e.g., ABCD0123456)">
+                        <label id="labelNameOfBank" for="nameOfBank">Name of Bank:</label>
+                        <input type="text" id="nameOfBank" name="nameOfBank" placeholder="Enter bank name" required>
                     </div>
                     <div class="form-group">
-                        <label id="labelBranchName" for="branchName">Branch Name:</label>
-                        <input type="text" id="branchName" name="branchName" placeholder="Enter branch name" required>
+                        <label id="labelBankAccountType" for="bankAccountType">Bank Account Type:</label>
+                        <input type="text" id="bankAccountType" name="bankAccountType" placeholder="e.g., Savings, Current" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelBranchCity" for="branchCity">Branch (City):</label>
+                        <input type="text" id="branchCity" name="branchCity" placeholder="Enter branch city" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelPanNo" for="panNo">Pan No:</label>
+                        <input type="text" id="panNo" name="panNo" placeholder="Enter PAN number" required pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" title="Please enter a valid 10-character PAN (e.g., ABCDE1234F)">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelBranchCodeIFSCNo" for="branchCodeIFSCNo">Branch Code (IFSC) No:</label>
+                        <input type="text" id="branchCodeIFSCNo" name="branchCodeIFSCNo" placeholder="Enter IFSC code" required pattern="[A-Z]{4}0[A-Z0-9]{6}" title="Please enter a valid IFSC code (e.g., ABCD0123456)">
                     </div>
                 </div>
             </div>
+
+            <!-- Work Experience Details Section -->
+            <div class="section-card">
+                <h2 id="sectionTitleWorkExperience">Work Experience Details</h2>
+                <div class="form-grid full-width">
+                    <div class="form-group">
+                        <label id="labelDuration" for="duration">DURATION (Year To Year/Month):</label>
+                        <input type="text" id="duration" name="duration" placeholder="e.g., 2018-2020">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelCompany" for="company">COMPANY (Name & Place):</label>
+                        <input type="text" id="company" name="company" placeholder="e.g., ABC Corp, Delhi">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelDesignation" for="designation">DESIGNATION (Last):</label>
+                        <input type="text" id="designation" name="designation" placeholder="e.g., Senior Developer">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelLastGrossSalary" for="lastGrossSalary">LAST GROSS SALARY:</label>
+                        <input type="text" id="lastGrossSalary" name="lastGrossSalary" placeholder="e.g., ₹50,000">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelReasonsForLeaving" for="reasonsForLeaving">REASONS FOR LEAVING:</label>
+                        <input type="text" id="reasonsForLeaving" name="reasonsForLeaving" placeholder="e.g., Better opportunity">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reference Contact Details Section -->
+            <div class="section-card">
+                <h2 id="sectionTitleReference">Reference Contact Details</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label id="labelRefName" for="refName">Name:</label>
+                        <input type="text" id="refName" name="refName" placeholder="Enter reference name">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelRefCompany" for="refCompany">Company:</label>
+                        <input type="text" id="refCompany" name="refCompany" placeholder="Enter reference company">
+                    </div>
+                    <div class="form-group full-width">
+                        <label id="labelRefAddress" for="refAddress">Address:</label>
+                        <textarea id="refAddress" name="refAddress" rows="2" placeholder="Enter reference address"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label id="labelRefPost" for="refPost">Post:</label>
+                        <input type="text" id="refPost" name="refPost" placeholder="Enter reference post">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelRefTelephoneNumber" for="refTelephoneNumber">Telephone Number:</label>
+                        <input type="text" id="refTelephoneNumber" name="refTelephoneNumber" placeholder="e.g., 011-12345678">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelRefContactNo" for="refContactNo">Contact No:</label>
+                        <input type="text" id="refContactNo" name="refContactNo" placeholder="e.g., 9876543210" pattern="[0-9]{10}">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Understanding of Language Section -->
+            <div class="section-card">
+                <h2 id="sectionTitleLanguage">Understanding of Language</h2>
+                <div class="form-grid full-width">
+                    <div class="form-group">
+                        <label id="labelLanguageEnglish" for="languageEnglishRead">English (Read):</label>
+                        <input type="checkbox" id="languageEnglishRead" name="languageEnglishRead" value="yes">
+                        <label id="labelLanguageEnglishWrite" for="languageEnglishWrite">Write:</label>
+                        <input type="checkbox" id="languageEnglishWrite" name="languageEnglishWrite" value="yes">
+                        <label id="labelLanguageEnglishSpeak" for="languageEnglishSpeak" class="ml-2">Speak:</label>
+                        <input type="checkbox" id="languageEnglishSpeak" name="languageEnglishSpeak" value="yes">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelLanguageNepali" for="languageNepaliRead">Nepali (Read):</label>
+                        <input type="checkbox" id="languageNepaliRead" name="languageNepaliRead" value="yes">
+                        <label id="labelLanguageNepaliWrite" for="languageNepaliWrite">Write:</label>
+                        <input type="checkbox" id="languageNepaliWrite" name="languageNepaliWrite" value="yes">
+                        <label id="labelLanguageNepaliSpeak" for="languageNepaliSpeak" class="ml-2">Speak:</label>
+                        <input type="checkbox" id="languageNepaliSpeak" name="languageNepaliSpeak" value="yes">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelLanguageHindi" for="languageHindiRead">Hindi (Read):</label>
+                        <input type="checkbox" id="languageHindiRead" name="languageHindiRead" value="yes">
+                        <label id="labelLanguageHindiWrite" for="languageHindiWrite">Write:</label>
+                        <input type="checkbox" id="languageHindiWrite" name="languageHindiWrite" value="yes">
+                        <label id="labelLanguageHindiSpeak" for="languageHindiSpeak" class="ml-2">Speak:</label>
+                        <input type="checkbox" id="languageHindiSpeak" name="languageHindiSpeak" value="yes">
+                    </div>
+                </div>
+            </div>
+
 
             <button id="submitBtn" type="submit">Submit Form</button>
         </form>
@@ -462,17 +565,18 @@
         <div id="imageResult" class="hidden">
             <h2 id="imagePreviewTitle" class="text-2xl font-semibold mt-8 text-gray-800">Generated Form Image:</h2>
             <img id="generatedImage" src="" alt="Generated Form Image" class="mt-5">
-            <a id="downloadImage" href="#" download="form_data_image.png" class="inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
+            <a id="downloadImage" href="#" download="personal_details_form.png" class="inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 ease-in-out transform hover:scale-105">
                 Download Image
             </a>
         </div>
     </div>
 
     <!-- This hidden div will be used by html2canvas to create the image -->
-    <div id="imageSource" class="text-base">
-        <div class="image-header">
-            <h3 id="imageSourceMainTitle">Anjali Group India</h3>
-            <p id="imageSourceSubtitle">Investment Portal - Submission Details</p>
+    <div id="imageSource">
+        <div class="image-main-title" id="imageSourceMainTitle">PERSONAL DETAILS FORM</div>
+        <div class="hr-details">
+            <div id="hrToComplete">TO BE COMPLETED BY HR</div>
+            <div id="employeeCode">Employee Code:</div>
         </div>
 
         <!-- Content for image generation will be dynamically added here -->
@@ -486,156 +590,258 @@
         // Language translations
         const translations = {
             en: {
-                mainTitle: "Anjali Group India - Investment Portal",
-                sectionTitlePersonal: "Personal Details",
-                labelFullName: "Full Name:",
-                placeholderFullName: "e.g., John Doe",
-                labelMobileNumber: "Mobile Number:",
-                placeholderMobileNumber: "e.g., 9876543210",
-                labelEmailAddress: "Email Address:",
-                placeholderEmailAddress: "e.g., example@domain.com",
-                labelAadharCardNumber: "Aadhar Card Number:",
-                placeholderAadharCardNumber: "e.g., 123456789012",
-                labelPANCardNumber: "PAN Card Number:",
-                placeholderPANCardNumber: "e.g., ABCDE1234F",
+                mainTitle: "Personal Details Form",
+                hrToComplete: "TO BE COMPLETED BY HR",
+                employeeCode: "Employee Code:",
 
-                sectionTitleInvestment: "Investment Details",
-                labelInvestmentCategory: "Investment Category:",
-                placeholderInvestmentCategory: "Select Category",
-                optionEquity: "Equity",
-                optionDebt: "Debt",
-                optionRealEstate: "Real Estate",
-                optionMutualFunds: "Mutual Funds",
-                labelInvestmentPlan: "Investment Plan:",
-                placeholderInvestmentPlan: "Select Plan",
-                optionPlanA: "Plan A",
-                optionPlanB: "Plan B",
-                optionPlanC: "Plan C",
-                labelQuantity: "Quantity:",
-                placeholderQuantity: "1",
-                labelTotalInvestmentAmount: "Total Investment Amount (₹):",
-                placeholderTotalInvestmentAmount: "0",
+                sectionTitleEmployee: "EMPLOYEE DETAILS",
+                labelEmployeeName: "Name:",
+                placeholderEmployeeName: "Enter employee name",
+                labelFatherName: "Father Name:",
+                placeholderFatherName: "Enter father's name",
+                labelDateOfBirth: "Date of Birth:",
+                labelAge: "Age:",
+                placeholderAge: "e.g., 30",
+                labelAreaOfService: "Area of Service:",
+                placeholderAreaOfService: "e.g., Sales",
+                labelCaste: "Caste:",
+                placeholderCaste: "Enter caste",
+                labelBloodGroup: "Blood Group:",
+                placeholderBloodGroup: "e.g., A+",
+                labelReligion: "Religion:",
+                placeholderReligion: "e.g., Hindu",
+                labelGender: "Gender:",
+                optionSelect: "Select",
+                optionMale: "Male",
+                optionFemale: "Female",
+                optionOther: "Other",
+                labelMaritalStatus: "Marital Status:",
+                optionSingle: "Single",
+                optionMarried: "Married",
+                optionDivorced: "Divorced",
+                optionWidowed: "Widowed",
+                labelWorkExperience: "Work Experience:",
+                placeholderWorkExperience: "e.g., 2 years in Sales",
+                labelContactNo: "Contact No:",
+                placeholderContactNo: "e.g., 9876543210",
+                labelPersonalEmailId: "Personal Email ID:",
+                placeholderPersonalEmailId: "e.g., email@example.com",
+                labelPresentAddress: "Present Address:",
+                placeholderPresentAddress: "Enter present address",
+                labelPermanentAddress: "Permanent Address:",
+                placeholderPermanentAddress: "Enter permanent address",
 
-                sectionTitlePayment: "Payment Details",
-                labelPaymentMode: "Payment Mode:",
-                placeholderPaymentMode: "Select Payment Mode",
-                optionOnlineTransfer: "Online Transfer",
-                optionCheque: "Cheque",
-                optionCash: "Cash",
-                labelReferralSponsorName: "Referral/Sponsor Name:",
-                placeholderReferralSponsorName: "e.g., Ram Niwas Gupta",
+                sectionTitleEmergency: "EMERGENCY CONTACT DETAILS",
+                labelECFullName: "Full Name:",
+                placeholderECFullName: "e.g., Jane Doe",
+                labelECRelationship: "Relationship:",
+                placeholderECRelationship: "e.g., Spouse",
+                labelECAddress: "Address:",
+                placeholderECAddress: "Enter emergency contact address",
+                labelECContactNo: "Contact No:",
+                placeholderECContactNo: "e.g., 9876543210",
+                labelECNote: "Note:",
+                placeholderECNote: "Any special notes",
 
-                sectionTitleAddress: "Address Details",
-                labelState: "State:",
-                placeholderState: "Select State",
-                optionDelhi: "Delhi",
-                optionMaharashtra: "Maharashtra",
-                optionUP: "Uttar Pradesh",
-                optionKarnataka: "Karnataka",
-                optionTamilNadu: "Tamil Nadu",
-                labelDistrict: "District:",
-                placeholderDistrict: "Select District",
-                optionNewDelhi: "New Delhi",
-                optionMumbai: "Mumbai",
-                optionLucknow: "Lucknow",
-                optionBangalore: "Bangalore",
-                optionChennai: "Chennai",
-                labelFullAddress: "Full Address:",
-                placeholderFullAddress: "Enter your full address",
+                sectionTitlePost: "POST DETAILS",
+                labelLocation: "Location:",
+                placeholderLocation: "e.g., Delhi",
+                labelDepartment: "Department:",
+                placeholderDepartment: "e.g., HR",
+                labelJobDesignation: "Job Designation:",
+                placeholderJobDesignation: "e.g., Manager",
+                labelJoiningDate: "Joining Date:",
+                labelCompanyId: "Company ID:",
+                placeholderCompanyId: "e.g., C12345",
+                labelSkypeId: "Skype ID:",
+                placeholderSkypeId: "e.g., live:john.doe",
+                labelTechnicalSkills: "Technical Skills:",
+                placeholderTechnicalSkills: "e.g., JavaScript, Python, SQL",
 
-                sectionTitleBank: "Bank Details",
-                labelBankAccountNumber: "Bank Account Number:",
-                placeholderBankAccountNumber: "Enter bank account number",
-                labelAccountHolderName: "Account Holder Name:",
-                placeholderAccountHolderName: "Enter account holder name",
-                labelIFSCCode: "IFSC Code:",
-                placeholderIFSCCode: "Enter IFSC code",
-                labelBranchName: "Branch Name:",
-                placeholderBranchName: "Enter branch name",
+                sectionTitleBank: "BANK DETAILS - Please ensure that you have a completed and SIGNED form",
+                labelAccountHoldersName: "Account Holders Name:",
+                placeholderAccountHoldersName: "Enter account holder's name",
+                labelAccountNumber: "Account Number:",
+                placeholderAccountNumber: "Enter account number",
+                labelNameOfBank: "Name of Bank:",
+                placeholderNameOfBank: "Enter bank name",
+                labelBankAccountType: "Bank Account Type:",
+                placeholderBankAccountType: "e.g., Savings, Current",
+                labelBranchCity: "Branch (City):",
+                placeholderBranchCity: "Enter branch city",
+                labelPanNo: "Pan No:",
+                placeholderPanNo: "Enter PAN number",
+                labelBranchCodeIFSCNo: "Branch Code (IFSC) No:",
+                placeholderBranchCodeIFSCNo: "Enter IFSC code",
+
+                sectionTitleWorkExperience: "WORK EXPERIENCE DETAILS",
+                labelDuration: "DURATION (Year To Year/Month):",
+                placeholderDuration: "e.g., 2018-2020",
+                labelCompany: "COMPANY (Name & Place):",
+                placeholderCompany: "e.g., ABC Corp, Delhi",
+                labelDesignation: "DESIGNATION (Last):",
+                placeholderDesignation: "e.g., Senior Developer",
+                labelLastGrossSalary: "LAST GROSS SALARY:",
+                placeholderLastGrossSalary: "e.g., ₹50,000",
+                labelReasonsForLeaving: "REASONS FOR LEAVING:",
+                placeholderReasonsForLeaving: "e.g., Better opportunity",
+
+                sectionTitleReference: "REFERENCE CONTACT DETAILS",
+                labelRefName: "Name:",
+                placeholderRefName: "Enter reference name",
+                labelRefCompany: "Company:",
+                placeholderRefCompany: "Enter reference company",
+                labelRefAddress: "Address:",
+                placeholderRefAddress: "Enter reference address",
+                labelRefPost: "Post:",
+                placeholderRefPost: "Enter reference post",
+                labelRefTelephoneNumber: "Telephone Number:",
+                placeholderRefTelephoneNumber: "e.g., 011-12345678",
+                labelRefContactNo: "Contact No:",
+                placeholderRefContactNo: "e.g., 9876543210",
+
+                sectionTitleLanguage: "UNDERSTANDING OF LANGUAGE",
+                labelLanguageEnglish: "English",
+                labelLanguageNepali: "Nepali",
+                labelLanguageHindi: "Hindi",
+                labelRead: "Read",
+                labelWrite: "Write",
+                labelSpeak: "Speak",
 
                 submitBtn: "Submit Form",
                 imagePreviewTitle: "Generated Form Image:",
                 downloadImage: "Download Image",
                 switchLang: "Switch to Hindi",
-                imageMainTitle: "Anjali Group India",
-                imageSubtitle: "Investment Portal - Submission Details",
+                imageMainTitle: "PERSONAL DETAILS FORM",
+                imageSubtitle: "", // No subtitle for this form
                 errorMsg: "Failed to generate image. Please try again.",
                 okBtn: "OK"
             },
             hi: {
-                mainTitle: "अंजलि ग्रुप इंडिया - निवेश पोर्टल",
-                sectionTitlePersonal: "व्यक्तिगत विवरण",
-                labelFullName: "पूरा नाम:",
-                placeholderFullName: "उदाहरण: जॉन डो",
-                labelMobileNumber: "मोबाइल नंबर:",
-                placeholderMobileNumber: "उदाहरण: 9876543210",
-                labelEmailAddress: "ईमेल पता:",
-                placeholderEmailAddress: "उदाहरण: example@domain.com",
-                labelAadharCardNumber: "आधार कार्ड नंबर:",
-                placeholderAadharCardNumber: "उदाहरण: 123456789012",
-                labelPANCardNumber: "पैन कार्ड नंबर:",
-                placeholderPANCardNumber: "उदाहरण: ABCDE1234F",
+                mainTitle: "व्यक्तिगत विवरण फॉर्म",
+                hrToComplete: "एचआर द्वारा भरा जाना है",
+                employeeCode: "कर्मचारी कोड:",
 
-                sectionTitleInvestment: "निवेश विवरण",
-                labelInvestmentCategory: "निवेश श्रेणी:",
-                placeholderInvestmentCategory: "श्रेणी चुनें",
-                optionEquity: "इक्विटी",
-                optionDebt: "ऋण",
-                optionRealEstate: "रियल एस्टेट",
-                optionMutualFunds: "म्यूचुअल फंड",
-                labelInvestmentPlan: "निवेश योजना:",
-                placeholderInvestmentPlan: "योजना चुनें",
-                optionPlanA: "योजना ए",
-                optionPlanB: "योजना बी",
-                optionPlanC: "योजना सी",
-                labelQuantity: "मात्रा:",
-                placeholderQuantity: "1",
-                labelTotalInvestmentAmount: "कुल निवेश राशि (₹):",
-                placeholderTotalInvestmentAmount: "0",
+                sectionTitleEmployee: "कर्मचारी विवरण",
+                labelEmployeeName: "नाम:",
+                placeholderEmployeeName: "कर्मचारी का नाम दर्ज करें",
+                labelFatherName: "पिता का नाम:",
+                placeholderFatherName: "पिता का नाम दर्ज करें",
+                labelDateOfBirth: "जन्म तिथि:",
+                labelAge: "आयु:",
+                placeholderAge: "उदाहरण: 30",
+                labelAreaOfService: "सेवा क्षेत्र:",
+                placeholderAreaOfService: "उदाहरण: बिक्री",
+                labelCaste: "जाति:",
+                placeholderCaste: "जाति दर्ज करें",
+                labelBloodGroup: "रक्त समूह:",
+                placeholderBloodGroup: "उदाहरण: ए+",
+                labelReligion: "धर्म:",
+                placeholderReligion: "उदाहरण: हिंदू",
+                labelGender: "लिंग:",
+                optionSelect: "चुनें",
+                optionMale: "पुरुष",
+                optionFemale: "महिला",
+                optionOther: "अन्य",
+                labelMaritalStatus: "वैवाहिक स्थिति:",
+                optionSingle: "अविवाहित",
+                optionMarried: "विवाहित",
+                optionDivorced: "तलाकशुदा",
+                optionWidowed: "विधवा",
+                labelWorkExperience: "कार्य अनुभव:",
+                placeholderWorkExperience: "उदाहरण: बिक्री में 2 साल",
+                labelContactNo: "संपर्क नंबर:",
+                placeholderContactNo: "उदाहरण: 9876543210",
+                labelPersonalEmailId: "व्यक्तिगत ईमेल आईडी:",
+                placeholderPersonalEmailId: "उदाहरण: email@example.com",
+                labelPresentAddress: "वर्तमान पता:",
+                placeholderPresentAddress: "वर्तमान पता दर्ज करें",
+                labelPermanentAddress: "स्थायी पता:",
+                placeholderPermanentAddress: "स्थायी पता दर्ज करें",
 
-                sectionTitlePayment: "भुगतान विवरण",
-                labelPaymentMode: "भुगतान मोड:",
-                placeholderPaymentMode: "भुगतान मोड चुनें",
-                optionOnlineTransfer: "ऑनलाइन ट्रांसफर",
-                optionCheque: "चेक",
-                optionCash: "नकद",
-                labelReferralSponsorName: "रेफरल/प्रायोजक का नाम:",
-                placeholderReferralSponsorName: "उदाहरण: राम निवास गुप्ता",
+                sectionTitleEmergency: "आपातकालीन संपर्क विवरण",
+                labelECFullName: "पूरा नाम:",
+                placeholderECFullName: "उदाहरण: जेन डो",
+                labelECRelationship: "संबंध:",
+                placeholderECRelationship: "उदाहरण: पति/पत्नी",
+                labelECAddress: "पता:",
+                placeholderECAddress: "आपातकालीन संपर्क पता दर्ज करें",
+                labelECContactNo: "संपर्क नंबर:",
+                placeholderECContactNo: "उदाहरण: 9876543210",
+                labelECNote: "नोट:",
+                placeholderECNote: "कोई विशेष नोट्स",
 
-                sectionTitleAddress: "पता विवरण",
-                labelState: "राज्य:",
-                placeholderState: "राज्य चुनें",
-                optionDelhi: "दिल्ली",
-                optionMaharashtra: "महाराष्ट्र",
-                optionUP: "उत्तर प्रदेश",
-                optionKarnataka: "कर्नाटक",
-                optionTamilNadu: "तमिलनाडु",
-                labelDistrict: "जिला:",
-                placeholderDistrict: "जिला चुनें",
-                optionNewDelhi: "नई दिल्ली",
-                optionMumbai: "मुंबई",
-                optionLucknow: "लखनऊ",
-                optionBangalore: "बेंगलुरु",
-                optionChennai: "चेन्नई",
-                labelFullAddress: "पूरा पता:",
-                placeholderFullAddress: "अपना पूरा पता दर्ज करें",
+                sectionTitlePost: "पद विवरण",
+                labelLocation: "स्थान:",
+                placeholderLocation: "उदाहरण: दिल्ली",
+                labelDepartment: "विभाग:",
+                placeholderDepartment: "उदाहरण: एचआर",
+                labelJobDesignation: "पदनाम:",
+                placeholderJobDesignation: "उदाहरण: प्रबंधक",
+                labelJoiningDate: "ज्वाइनिंग तिथि:",
+                labelCompanyId: "कंपनी आईडी:",
+                placeholderCompanyId: "उदाहरण: C12345",
+                labelSkypeId: "स्काइप आईडी:",
+                placeholderSkypeId: "उदाहरण: live:john.doe",
+                labelTechnicalSkills: "तकनीकी कौशल:",
+                placeholderTechnicalSkills: "उदाहरण: जावास्क्रिप्ट, पायथन, एसक्यूएल",
 
-                sectionTitleBank: "बैंक विवरण",
-                labelBankAccountNumber: "बैंक खाता संख्या:",
-                placeholderBankAccountNumber: "बैंक खाता संख्या दर्ज करें",
-                labelAccountHolderName: "खाताधारक का नाम:",
-                placeholderAccountHolderName: "खाताधारक का नाम दर्ज करें",
-                labelIFSCCode: "आई एफ एस सी कोड:",
-                placeholderIFSCCode: "आई एफ एस सी कोड दर्ज करें",
-                labelBranchName: "शाखा का नाम:",
-                placeholderBranchName: "शाखा का नाम दर्ज करें",
+                sectionTitleBank: "बैंक विवरण - कृपया सुनिश्चित करें कि आपने एक पूर्ण और हस्ताक्षरित फॉर्म भरा है",
+                labelAccountHoldersName: "खाताधारक का नाम:",
+                placeholderAccountHoldersName: "खाताधारक का नाम दर्ज करें",
+                labelAccountNumber: "खाता संख्या:",
+                placeholderAccountNumber: "खाता संख्या दर्ज करें",
+                labelNameOfBank: "बैंक का नाम:",
+                placeholderNameOfBank: "बैंक का नाम दर्ज करें",
+                labelBankAccountType: "बैंक खाता प्रकार:",
+                placeholderBankAccountType: "उदाहरण: बचत, चालू",
+                labelBranchCity: "शाखा (शहर):",
+                placeholderBranchCity: "शाखा शहर दर्ज करें",
+                labelPanNo: "पैन नंबर:",
+                placeholderPanNo: "पैन नंबर दर्ज करें",
+                labelBranchCodeIFSCNo: "शाखा कोड (आईएफएससी) नंबर:",
+                placeholderBranchCodeIFSCNo: "आईएफएससी कोड दर्ज करें",
+
+                sectionTitleWorkExperience: "कार्य अनुभव विवरण",
+                labelDuration: "अवधि (वर्ष से वर्ष/माह):",
+                placeholderDuration: "उदाहरण: 2018-2020",
+                labelCompany: "कंपनी (नाम और स्थान):",
+                placeholderCompany: "उदाहरण: एबीसी कॉर्प, दिल्ली",
+                labelDesignation: "पदनाम (अंतिम):",
+                placeholderDesignation: "उदाहरण: वरिष्ठ डेवलपर",
+                labelLastGrossSalary: "अंतिम सकल वेतन:",
+                placeholderLastGrossSalary: "उदाहरण: ₹50,000",
+                labelReasonsForLeaving: "छोड़ने के कारण:",
+                placeholderReasonsForLeaving: "उदाहरण: बेहतर अवसर",
+
+                sectionTitleReference: "संदर्भ संपर्क विवरण",
+                labelRefName: "नाम:",
+                placeholderRefName: "संदर्भ नाम दर्ज करें",
+                labelRefCompany: "कंपनी:",
+                placeholderRefCompany: "संदर्भ कंपनी दर्ज करें",
+                labelRefAddress: "पता:",
+                placeholderRefAddress: "संदर्भ पता दर्ज करें",
+                labelRefPost: "पद:",
+                placeholderRefPost: "संदर्भ पद दर्ज करें",
+                labelRefTelephoneNumber: "टेलीफोन नंबर:",
+                placeholderRefTelephoneNumber: "उदाहरण: 011-12345678",
+                labelRefContactNo: "संपर्क नंबर:",
+                placeholderRefContactNo: "उदाहरण: 9876543210",
+
+                sectionTitleLanguage: "भाषा की समझ",
+                labelLanguageEnglish: "अंग्रेजी",
+                labelLanguageNepali: "नेपाली",
+                labelLanguageHindi: "हिंदी",
+                labelRead: "पढ़ना",
+                labelWrite: "लिखना",
+                labelSpeak: "बोलना",
 
                 submitBtn: "फॉर्म जमा करें",
                 imagePreviewTitle: "जनरेट की गई फॉर्म छवि:",
                 downloadImage: "छवि डाउनलोड करें",
                 switchLang: "अंग्रेजी में स्विच करें",
-                imageMainTitle: "अंजलि ग्रुप इंडिया",
-                imageSubtitle: "निवेश पोर्टल - सबमिशन विवरण",
+                imageMainTitle: "व्यक्तिगत विवरण फॉर्म",
+                imageSubtitle: "", // No subtitle for this form
                 errorMsg: "छवि बनाने में विफल। कृपया पुनः प्रयास करें।",
                 okBtn: "ठीक है"
             }
@@ -654,37 +860,24 @@
         const imagePreviewTitle = document.getElementById('imagePreviewTitle');
         const imageSourceDiv = document.getElementById('imageSource');
         const imageSourceMainTitle = document.getElementById('imageSourceMainTitle');
-        const imageSourceSubtitle = document.getElementById('imageSourceSubtitle');
+        const hrToComplete = document.getElementById('hrToComplete');
+        const employeeCode = document.getElementById('employeeCode');
         const imageSourceContent = document.getElementById('imageSourceContent');
 
-        // Helper function to create a field row for the image
-        function createImageFieldRow(label, value) {
-            const row = document.createElement('div');
-            row.className = 'image-field-row';
-            const labelCol = document.createElement('span');
-            labelCol.className = 'label-col';
-            labelCol.textContent = label;
-            const valueCol = document.createElement('span');
-            valueCol.className = 'value-col';
-            valueCol.textContent = value;
-            row.appendChild(labelCol);
-            row.appendChild(valueCol);
-            return row;
+        // Helper function to create a cell with label and value
+        function createCell(label, value, className = '') {
+            const cell = document.createElement('div');
+            cell.className = `image-cell ${className}`;
+            cell.innerHTML = `<span class="image-label">${label}</span><span class="image-value">${value}</span>`;
+            return cell;
         }
 
-        // Helper function to create a full-width field row for the image (e.g., address)
-        function createImageFieldFullWidth(label, value) {
-            const row = document.createElement('div');
-            row.className = 'image-field-full-width';
-            const labelCol = document.createElement('div');
-            labelCol.className = 'label-col';
-            labelCol.textContent = label;
-            const valueCol = document.createElement('div');
-            valueCol.className = 'value-col';
-            valueCol.textContent = value;
-            row.appendChild(labelCol);
-            row.appendChild(valueCol);
-            return row;
+        // Helper function to create a section within the image
+        function createImageSection(titleText, contentHtml) {
+            const section = document.createElement('div');
+            section.className = 'image-section';
+            section.innerHTML = `<div class="image-section-title">${titleText}</div><div class="image-section-content">${contentHtml}</div>`;
+            return section;
         }
 
         // Function to update text content based on current language
@@ -697,80 +890,128 @@
             imagePreviewTitle.textContent = lang.imagePreviewTitle;
             downloadImageButton.textContent = lang.downloadImage;
             imageSourceMainTitle.textContent = lang.imageMainTitle;
-            imageSourceSubtitle.textContent = lang.imageSubtitle;
+            hrToComplete.textContent = lang.hrToComplete;
+            employeeCode.textContent = lang.employeeCode + (document.getElementById('employeeCode').dataset.value || '');
+
 
             // Update section titles
-            document.getElementById('sectionTitlePersonal').textContent = lang.sectionTitlePersonal;
-            document.getElementById('sectionTitleInvestment').textContent = lang.sectionTitleInvestment;
-            document.getElementById('sectionTitlePayment').textContent = lang.sectionTitlePayment;
-            document.getElementById('sectionTitleAddress').textContent = lang.sectionTitleAddress;
+            document.getElementById('sectionTitleEmployee').textContent = lang.sectionTitleEmployee;
+            document.getElementById('sectionTitleEmergency').textContent = lang.sectionTitleEmergency;
+            document.getElementById('sectionTitlePost').textContent = lang.sectionTitlePost;
             document.getElementById('sectionTitleBank').textContent = lang.sectionTitleBank;
+            document.getElementById('sectionTitleWorkExperience').textContent = lang.sectionTitleWorkExperience;
+            document.getElementById('sectionTitleReference').textContent = lang.sectionTitleReference;
+            document.getElementById('sectionTitleLanguage').textContent = lang.sectionTitleLanguage;
+
 
             // Update form labels and placeholders
-            document.getElementById('labelFullName').textContent = lang.labelFullName;
-            document.getElementById('fullName').placeholder = lang.placeholderFullName;
-            document.getElementById('labelMobileNumber').textContent = lang.labelMobileNumber;
-            document.getElementById('mobileNumber').placeholder = lang.placeholderMobileNumber;
-            document.getElementById('labelEmailAddress').textContent = lang.labelEmailAddress;
-            document.getElementById('emailAddress').placeholder = lang.placeholderEmailAddress;
-            document.getElementById('labelAadharCardNumber').textContent = lang.labelAadharCardNumber;
-            document.getElementById('aadharCardNumber').placeholder = lang.placeholderAadharCardNumber;
-            document.getElementById('labelPANCardNumber').textContent = lang.labelPANCardNumber;
-            document.getElementById('panCardNumber').placeholder = lang.placeholderPANCardNumber;
+            document.getElementById('labelEmployeeName').textContent = lang.labelEmployeeName;
+            document.getElementById('employeeName').placeholder = lang.placeholderEmployeeName;
+            document.getElementById('labelFatherName').textContent = lang.labelFatherName;
+            document.getElementById('fatherName').placeholder = lang.placeholderFatherName;
+            document.getElementById('labelDateOfBirth').textContent = lang.labelDateOfBirth;
+            document.getElementById('labelAge').textContent = lang.labelAge;
+            document.getElementById('age').placeholder = lang.placeholderAge;
+            document.getElementById('labelAreaOfService').textContent = lang.labelAreaOfService;
+            document.getElementById('areaOfService').placeholder = lang.placeholderAreaOfService;
+            document.getElementById('labelCaste').textContent = lang.labelCaste;
+            document.getElementById('caste').placeholder = lang.placeholderCaste;
+            document.getElementById('labelBloodGroup').textContent = lang.labelBloodGroup;
+            document.getElementById('bloodGroup').placeholder = lang.placeholderBloodGroup;
+            document.getElementById('labelReligion').textContent = lang.labelReligion;
+            document.getElementById('religion').placeholder = lang.placeholderReligion;
+            document.getElementById('labelGender').textContent = lang.labelGender;
+            document.querySelector('#gender option[value=""]').textContent = lang.optionSelect;
+            document.querySelector('#gender option[value="male"]').textContent = lang.optionMale;
+            document.querySelector('#gender option[value="female"]').textContent = lang.optionFemale;
+            document.querySelector('#gender option[value="other"]').textContent = lang.optionOther;
+            document.getElementById('labelMaritalStatus').textContent = lang.labelMaritalStatus;
+            document.querySelector('#maritalStatus option[value=""]').textContent = lang.optionSelect;
+            document.querySelector('#maritalStatus option[value="single"]').textContent = lang.optionSingle;
+            document.querySelector('#maritalStatus option[value="married"]').textContent = lang.optionMarried;
+            document.querySelector('#maritalStatus option[value="divorced"]').textContent = lang.optionDivorced;
+            document.querySelector('#maritalStatus option[value="widowed"]').textContent = lang.optionWidowed;
+            document.getElementById('labelWorkExperience').textContent = lang.labelWorkExperience;
+            document.getElementById('workExperience').placeholder = lang.placeholderWorkExperience;
+            document.getElementById('labelContactNo').textContent = lang.labelContactNo;
+            document.getElementById('contactNo').placeholder = lang.placeholderContactNo;
+            document.getElementById('labelPersonalEmailId').textContent = lang.labelPersonalEmailId;
+            document.getElementById('personalEmailId').placeholder = lang.placeholderPersonalEmailId;
+            document.getElementById('labelPresentAddress').textContent = lang.labelPresentAddress;
+            document.getElementById('presentAddress').placeholder = lang.placeholderPresentAddress;
+            document.getElementById('labelPermanentAddress').textContent = lang.labelPermanentAddress;
+            document.getElementById('permanentAddress').placeholder = lang.placeholderPermanentAddress;
 
-            document.getElementById('labelInvestmentCategory').textContent = lang.labelInvestmentCategory;
-            document.querySelector('#investmentCategory option[value=""]').textContent = lang.placeholderInvestmentCategory;
-            document.querySelector('#investmentCategory option[value="equity"]').textContent = lang.optionEquity;
-            document.querySelector('#investmentCategory option[value="debt"]').textContent = lang.optionDebt;
-            document.querySelector('#investmentCategory option[value="real_estate"]').textContent = lang.optionRealEstate;
-            document.querySelector('#investmentCategory option[value="mutual_funds"]').textContent = lang.optionMutualFunds;
+            document.getElementById('labelECFullName').textContent = lang.labelECFullName;
+            document.getElementById('ecFullName').placeholder = lang.placeholderECFullName;
+            document.getElementById('labelECRelationship').textContent = lang.labelECRelationship;
+            document.getElementById('ecRelationship').placeholder = lang.placeholderECRelationship;
+            document.getElementById('labelECAddress').textContent = lang.labelECAddress;
+            document.getElementById('ecAddress').placeholder = lang.placeholderECAddress;
+            document.getElementById('labelECContactNo').textContent = lang.labelECContactNo;
+            document.getElementById('ecContactNo').placeholder = lang.placeholderECContactNo;
+            document.getElementById('labelECNote').textContent = lang.labelECNote;
+            document.getElementById('ecNote').placeholder = lang.placeholderECNote;
 
-            document.getElementById('labelInvestmentPlan').textContent = lang.labelInvestmentPlan;
-            document.querySelector('#investmentPlan option[value=""]').textContent = lang.placeholderInvestmentPlan;
-            document.querySelector('#investmentPlan option[value="plan_a"]').textContent = lang.optionPlanA;
-            document.querySelector('#investmentPlan option[value="plan_b"]').textContent = lang.optionPlanB;
-            document.querySelector('#investmentPlan option[value="plan_c"]').textContent = lang.optionPlanC;
+            document.getElementById('labelLocation').textContent = lang.labelLocation;
+            document.getElementById('location').placeholder = lang.placeholderLocation;
+            document.getElementById('labelDepartment').textContent = lang.labelDepartment;
+            document.getElementById('department').placeholder = lang.placeholderDepartment;
+            document.getElementById('labelJobDesignation').textContent = lang.labelJobDesignation;
+            document.getElementById('jobDesignation').placeholder = lang.placeholderJobDesignation;
+            document.getElementById('labelJoiningDate').textContent = lang.labelJoiningDate;
+            document.getElementById('labelCompanyId').textContent = lang.labelCompanyId;
+            document.getElementById('companyId').placeholder = lang.placeholderCompanyId;
+            document.getElementById('labelSkypeId').textContent = lang.labelSkypeId;
+            document.getElementById('skypeId').placeholder = lang.placeholderSkypeId;
+            document.getElementById('labelTechnicalSkills').textContent = lang.labelTechnicalSkills;
+            document.getElementById('technicalSkills').placeholder = lang.placeholderTechnicalSkills;
 
-            document.getElementById('labelQuantity').textContent = lang.labelQuantity;
-            document.getElementById('quantity').placeholder = lang.placeholderQuantity;
-            document.getElementById('labelTotalInvestmentAmount').textContent = lang.labelTotalInvestmentAmount;
-            document.getElementById('totalInvestmentAmount').placeholder = lang.placeholderTotalInvestmentAmount;
+            document.getElementById('labelAccountHoldersName').textContent = lang.labelAccountHoldersName;
+            document.getElementById('accountHoldersName').placeholder = lang.placeholderAccountHoldersName;
+            document.getElementById('labelAccountNumber').textContent = lang.labelAccountNumber;
+            document.getElementById('accountNumber').placeholder = lang.placeholderAccountNumber;
+            document.getElementById('labelNameOfBank').textContent = lang.labelNameOfBank;
+            document.getElementById('nameOfBank').placeholder = lang.placeholderNameOfBank;
+            document.getElementById('labelBankAccountType').textContent = lang.labelBankAccountType;
+            document.getElementById('bankAccountType').placeholder = lang.placeholderBankAccountType;
+            document.getElementById('labelBranchCity').textContent = lang.labelBranchCity;
+            document.getElementById('branchCity').placeholder = lang.placeholderBranchCity;
+            document.getElementById('labelPanNo').textContent = lang.labelPanNo;
+            document.getElementById('panNo').placeholder = lang.placeholderPanNo;
+            document.getElementById('labelBranchCodeIFSCNo').textContent = lang.labelBranchCodeIFSCNo;
+            document.getElementById('branchCodeIFSCNo').placeholder = lang.placeholderBranchCodeIFSCNo;
 
-            document.getElementById('labelPaymentMode').textContent = lang.labelPaymentMode;
-            document.querySelector('#paymentMode option[value=""]').textContent = lang.placeholderPaymentMode;
-            document.querySelector('#paymentMode option[value="online"]').textContent = lang.optionOnlineTransfer;
-            document.querySelector('#paymentMode option[value="cheque"]').textContent = lang.optionCheque;
-            document.querySelector('#paymentMode option[value="cash"]').textContent = lang.optionCash;
-            document.getElementById('labelReferralSponsorName').textContent = lang.labelReferralSponsorName;
-            document.getElementById('referralSponsorName').placeholder = lang.placeholderReferralSponsorName;
+            document.getElementById('labelDuration').textContent = lang.labelDuration;
+            document.getElementById('duration').placeholder = lang.placeholderDuration;
+            document.getElementById('labelCompany').textContent = lang.labelCompany;
+            document.getElementById('company').placeholder = lang.placeholderCompany;
+            document.getElementById('labelDesignation').textContent = lang.labelDesignation;
+            document.getElementById('designation').placeholder = lang.placeholderDesignation;
+            document.getElementById('labelLastGrossSalary').textContent = lang.labelLastGrossSalary;
+            document.getElementById('lastGrossSalary').placeholder = lang.placeholderLastGrossSalary;
+            document.getElementById('labelReasonsForLeaving').textContent = lang.labelReasonsForLeaving;
+            document.getElementById('reasonsForLeaving').placeholder = lang.placeholderReasonsForLeaving;
 
-            document.getElementById('labelState').textContent = lang.labelState;
-            document.querySelector('#state option[value=""]').textContent = lang.placeholderState;
-            document.querySelector('#state option[value="delhi"]').textContent = lang.optionDelhi;
-            document.querySelector('#state option[value="maharashtra"]').textContent = lang.optionMaharashtra;
-            document.querySelector('#state option[value="up"]').textContent = lang.optionUP;
-            document.querySelector('#state option[value="karnataka"]').textContent = lang.optionKarnataka;
-            document.querySelector('#state option[value="tamil_nadu"]').textContent = lang.optionTamilNadu;
+            document.getElementById('labelRefName').textContent = lang.labelRefName;
+            document.getElementById('refName').placeholder = lang.placeholderRefName;
+            document.getElementById('labelRefCompany').textContent = lang.labelRefCompany;
+            document.getElementById('refCompany').placeholder = lang.placeholderRefCompany;
+            document.getElementById('labelRefAddress').textContent = lang.labelRefAddress;
+            document.getElementById('refAddress').placeholder = lang.placeholderRefAddress;
+            document.getElementById('labelRefPost').textContent = lang.labelRefPost;
+            document.getElementById('refPost').placeholder = lang.placeholderRefPost;
+            document.getElementById('labelRefTelephoneNumber').textContent = lang.labelRefTelephoneNumber;
+            document.getElementById('refTelephoneNumber').placeholder = lang.placeholderRefTelephoneNumber;
+            document.getElementById('labelRefContactNo').textContent = lang.labelRefContactNo;
+            document.getElementById('refContactNo').placeholder = lang.placeholderRefContactNo;
 
-            document.getElementById('labelDistrict').textContent = lang.labelDistrict;
-            document.querySelector('#district option[value=""]').textContent = lang.placeholderDistrict;
-            document.querySelector('#district option[value="new_delhi"]').textContent = lang.optionNewDelhi;
-            document.querySelector('#district option[value="mumbai"]').textContent = lang.optionMumbai;
-            document.querySelector('#district option[value="lucknow"]').textContent = lang.optionLucknow;
-            document.querySelector('#district option[value="bangalore"]').textContent = lang.optionBangalore;
-            document.querySelector('#district option[value="chennai"]').textContent = lang.optionChennai;
-
-            document.getElementById('labelFullAddress').textContent = lang.labelFullAddress;
-            document.getElementById('fullAddress').placeholder = lang.placeholderFullAddress;
-
-            document.getElementById('labelBankAccountNumber').textContent = lang.labelBankAccountNumber;
-            document.getElementById('bankAccountNumber').placeholder = lang.placeholderBankAccountNumber;
-            document.getElementById('labelAccountHolderName').textContent = lang.labelAccountHolderName;
-            document.getElementById('accountHolderName').placeholder = lang.placeholderAccountHolderName;
-            document.getElementById('labelIFSCCode').textContent = lang.labelIFSCCode;
-            document.getElementById('ifscCode').placeholder = lang.placeholderIFSCCode;
-            document.getElementById('labelBranchName').textContent = lang.labelBranchName;
-            document.getElementById('branchName').placeholder = lang.placeholderBranchName;
+            document.getElementById('labelLanguageEnglish').textContent = lang.labelLanguageEnglish;
+            document.getElementById('labelLanguageNepali').textContent = lang.labelLanguageNepali;
+            document.getElementById('labelLanguageHindi').textContent = lang.labelLanguageHindi;
+            // For checkboxes, we need to update the text labels next to them if they are separate
+            // Assuming the labels are linked by 'for' attribute, updating the main label is enough.
+            // If they are not, you'd need to target them specifically.
         }
 
         // Initial content update
@@ -788,83 +1029,237 @@
 
             // Get all form data
             const formData = {
-                fullName: document.getElementById('fullName').value,
-                mobileNumber: document.getElementById('mobileNumber').value,
-                emailAddress: document.getElementById('emailAddress').value,
-                aadharCardNumber: document.getElementById('aadharCardNumber').value,
-                panCardNumber: document.getElementById('panCardNumber').value,
+                employeeName: document.getElementById('employeeName').value,
+                fatherName: document.getElementById('fatherName').value,
+                dateOfBirth: document.getElementById('dateOfBirth').value,
+                age: document.getElementById('age').value,
+                areaOfService: document.getElementById('areaOfService').value,
+                caste: document.getElementById('caste').value,
+                bloodGroup: document.getElementById('bloodGroup').value,
+                religion: document.getElementById('religion').value,
+                gender: document.getElementById('gender').value,
+                maritalStatus: document.getElementById('maritalStatus').value,
+                workExperience: document.getElementById('workExperience').value,
+                contactNo: document.getElementById('contactNo').value,
+                personalEmailId: document.getElementById('personalEmailId').value,
+                presentAddress: document.getElementById('presentAddress').value,
+                permanentAddress: document.getElementById('permanentAddress').value,
 
-                investmentCategory: document.getElementById('investmentCategory').value,
-                investmentPlan: document.getElementById('investmentPlan').value,
-                quantity: document.getElementById('quantity').value,
-                totalInvestmentAmount: document.getElementById('totalInvestmentAmount').value,
+                ecFullName: document.getElementById('ecFullName').value,
+                ecRelationship: document.getElementById('ecRelationship').value,
+                ecAddress: document.getElementById('ecAddress').value,
+                ecContactNo: document.getElementById('ecContactNo').value,
+                ecNote: document.getElementById('ecNote').value,
 
-                paymentMode: document.getElementById('paymentMode').value,
-                referralSponsorName: document.getElementById('referralSponsorName').value,
+                location: document.getElementById('location').value,
+                department: document.getElementById('department').value,
+                jobDesignation: document.getElementById('jobDesignation').value,
+                joiningDate: document.getElementById('joiningDate').value,
+                companyId: document.getElementById('companyId').value,
+                skypeId: document.getElementById('skypeId').value,
+                technicalSkills: document.getElementById('technicalSkills').value,
 
-                state: document.getElementById('state').value,
-                district: document.getElementById('district').value,
-                fullAddress: document.getElementById('fullAddress').value,
+                accountHoldersName: document.getElementById('accountHoldersName').value,
+                accountNumber: document.getElementById('accountNumber').value,
+                nameOfBank: document.getElementById('nameOfBank').value,
+                bankAccountType: document.getElementById('bankAccountType').value,
+                branchCity: document.getElementById('branchCity').value,
+                panNo: document.getElementById('panNo').value,
+                branchCodeIFSCNo: document.getElementById('branchCodeIFSCNo').value,
 
-                bankAccountNumber: document.getElementById('bankAccountNumber').value,
-                accountHolderName: document.getElementById('accountHolderName').value,
-                ifscCode: document.getElementById('ifscCode').value,
-                branchName: document.getElementById('branchName').value,
+                duration: document.getElementById('duration').value,
+                company: document.getElementById('company').value,
+                designation: document.getElementById('designation').value,
+                lastGrossSalary: document.getElementById('lastGrossSalary').value,
+                reasonsForLeaving: document.getElementById('reasonsForLeaving').value,
+
+                refName: document.getElementById('refName').value,
+                refCompany: document.getElementById('refCompany').value,
+                refAddress: document.getElementById('refAddress').value,
+                refPost: document.getElementById('refPost').value,
+                refTelephoneNumber: document.getElementById('refTelephoneNumber').value,
+                refContactNo: document.getElementById('refContactNo').value,
+
+                languageEnglishRead: document.getElementById('languageEnglishRead').checked ? 'Yes' : 'No',
+                languageEnglishWrite: document.getElementById('languageEnglishWrite').checked ? 'Yes' : 'No',
+                languageEnglishSpeak: document.getElementById('languageEnglishSpeak').checked ? 'Yes' : 'No',
+                languageNepaliRead: document.getElementById('languageNepaliRead').checked ? 'Yes' : 'No',
+                languageNepaliWrite: document.getElementById('languageNepaliWrite').checked ? 'Yes' : 'No',
+                languageNepaliSpeak: document.getElementById('languageNepaliSpeak').checked ? 'Yes' : 'No',
+                languageHindiRead: document.getElementById('languageHindiRead').checked ? 'Yes' : 'No',
+                languageHindiWrite: document.getElementById('languageHindiWrite').checked ? 'Yes' : 'No',
+                languageHindiSpeak: document.getElementById('languageHindiSpeak').checked ? 'Yes' : 'No',
             };
 
             // Clear previous content in imageSourceContent
             imageSourceContent.innerHTML = '';
 
-            // Populate the hidden div with the content to be imaged
             const lang = translations[currentLang];
 
-            // Personal Details Section
-            const personalSection = document.createElement('div');
-            personalSection.className = 'image-section-output';
-            personalSection.innerHTML = `<h4>${lang.sectionTitlePersonal}</h4>`;
-            personalSection.appendChild(createImageFieldRow(lang.labelFullName, formData.fullName));
-            personalSection.appendChild(createImageFieldRow(lang.labelMobileNumber, formData.mobileNumber));
-            personalSection.appendChild(createImageFieldRow(lang.labelEmailAddress, formData.emailAddress));
-            personalSection.appendChild(createImageFieldRow(lang.labelAadharCardNumber, formData.aadharCardNumber));
-            personalSection.appendChild(createImageFieldRow(lang.labelPANCardNumber, formData.panCardNumber));
-            imageSourceContent.appendChild(personalSection);
+            // Employee Details Section
+            let employeeDetailsContent = `
+                <div class="image-row">
+                    ${createCell(lang.labelEmployeeName, formData.employeeName, 'half').outerHTML}
+                    ${createCell(lang.labelFatherName, formData.fatherName, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelDateOfBirth, formData.dateOfBirth, 'half').outerHTML}
+                    ${createCell(lang.labelAge, formData.age, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelAreaOfService, formData.areaOfService, 'half').outerHTML}
+                    ${createCell(lang.labelCaste, formData.caste, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelBloodGroup, formData.bloodGroup, 'half').outerHTML}
+                    ${createCell(lang.labelReligion, formData.religion, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelGender, formData.gender, 'half').outerHTML}
+                    ${createCell(lang.labelMaritalStatus, formData.maritalStatus, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelWorkExperience, formData.workExperience, 'full').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelContactNo, formData.contactNo, 'half').outerHTML}
+                    ${createCell(lang.labelPersonalEmailId, formData.personalEmailId, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelPresentAddress, formData.presentAddress, 'full').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelPermanentAddress, formData.permanentAddress, 'full').outerHTML}
+                </div>
+            `;
+            imageSourceContent.appendChild(createImageSection(lang.sectionTitleEmployee, employeeDetailsContent));
 
-            // Investment Details Section
-            const investmentSection = document.createElement('div');
-            investmentSection.className = 'image-section-output';
-            investmentSection.innerHTML = `<h4>${lang.sectionTitleInvestment}</h4>`;
-            investmentSection.appendChild(createImageFieldRow(lang.labelInvestmentCategory, document.getElementById('investmentCategory').options[document.getElementById('investmentCategory').selectedIndex].text));
-            investmentSection.appendChild(createImageFieldRow(lang.labelInvestmentPlan, document.getElementById('investmentPlan').options[document.getElementById('investmentPlan').selectedIndex].text));
-            investmentSection.appendChild(createImageFieldRow(lang.labelQuantity, formData.quantity));
-            investmentSection.appendChild(createImageFieldRow(lang.labelTotalInvestmentAmount, `₹ ${formData.totalInvestmentAmount}`));
-            imageSourceContent.appendChild(investmentSection);
+            // Emergency Contact Details Section
+            let emergencyContactContent = `
+                <div class="image-row">
+                    ${createCell(lang.labelECFullName, formData.ecFullName, 'half').outerHTML}
+                    ${createCell(lang.labelECRelationship, formData.ecRelationship, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelECAddress, formData.ecAddress, 'full').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelECContactNo, formData.ecContactNo, 'half').outerHTML}
+                    ${createCell(lang.labelECNote, formData.ecNote, 'half').outerHTML}
+                </div>
+            `;
+            imageSourceContent.appendChild(createImageSection(lang.sectionTitleEmergency, emergencyContactContent));
 
-            // Payment Details Section
-            const paymentSection = document.createElement('div');
-            paymentSection.className = 'image-section-output';
-            paymentSection.innerHTML = `<h4>${lang.sectionTitlePayment}</h4>`;
-            paymentSection.appendChild(createImageFieldRow(lang.labelPaymentMode, document.getElementById('paymentMode').options[document.getElementById('paymentMode').selectedIndex].text));
-            paymentSection.appendChild(createImageFieldRow(lang.labelReferralSponsorName, formData.referralSponsorName));
-            imageSourceContent.appendChild(paymentSection);
-
-            // Address Details Section
-            const addressSection = document.createElement('div');
-            addressSection.className = 'image-section-output';
-            addressSection.innerHTML = `<h4>${lang.sectionTitleAddress}</h4>`;
-            addressSection.appendChild(createImageFieldRow(lang.labelState, document.getElementById('state').options[document.getElementById('state').selectedIndex].text));
-            addressSection.appendChild(createImageFieldRow(lang.labelDistrict, document.getElementById('district').options[document.getElementById('district').selectedIndex].text));
-            addressSection.appendChild(createImageFieldFullWidth(lang.labelFullAddress, formData.fullAddress));
-            imageSourceContent.appendChild(addressSection);
+            // Post Details Section
+            let postDetailsContent = `
+                <div class="image-row">
+                    ${createCell(lang.labelLocation, formData.location, 'half').outerHTML}
+                    ${createCell(lang.labelDepartment, formData.department, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelJobDesignation, formData.jobDesignation, 'half').outerHTML}
+                    ${createCell(lang.labelJoiningDate, formData.joiningDate, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelCompanyId, formData.companyId, 'half').outerHTML}
+                    ${createCell(lang.labelSkypeId, formData.skypeId, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelTechnicalSkills, formData.technicalSkills, 'full').outerHTML}
+                </div>
+            `;
+            imageSourceContent.appendChild(createImageSection(lang.sectionTitlePost, postDetailsContent));
 
             // Bank Details Section
-            const bankSection = document.createElement('div');
-            bankSection.className = 'image-section-output';
-            bankSection.innerHTML = `<h4>${lang.sectionTitleBank}</h4>`;
-            bankSection.appendChild(createImageFieldRow(lang.labelBankAccountNumber, formData.bankAccountNumber));
-            bankSection.appendChild(createImageFieldRow(lang.labelAccountHolderName, formData.accountHolderName));
-            bankSection.appendChild(createImageFieldRow(lang.labelIFSCCode, formData.ifscCode));
-            bankSection.appendChild(createImageFieldRow(lang.labelBranchName, formData.branchName));
-            imageSourceContent.appendChild(bankSection);
+            let bankDetailsContent = `
+                <div class="image-row">
+                    ${createCell(lang.labelAccountHoldersName, formData.accountHoldersName, 'half').outerHTML}
+                    ${createCell(lang.labelAccountNumber, formData.accountNumber, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelNameOfBank, formData.nameOfBank, 'half').outerHTML}
+                    ${createCell(lang.labelBankAccountType, formData.bankAccountType, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelBranchCity, formData.branchCity, 'half').outerHTML}
+                    ${createCell(lang.labelPanNo, formData.panNo, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelBranchCodeIFSCNo, formData.branchCodeIFSCNo, 'full').outerHTML}
+                </div>
+            `;
+            imageSourceContent.appendChild(createImageSection(lang.sectionTitleBank, bankDetailsContent));
+
+            // Work Experience Details Section
+            let workExperienceContent = `
+                <div class="image-row">
+                    ${createCell(lang.labelDuration, formData.duration, 'quarter').outerHTML}
+                    ${createCell(lang.labelCompany, formData.company, 'quarter').outerHTML}
+                    ${createCell(lang.labelDesignation, formData.designation, 'quarter').outerHTML}
+                    ${createCell(lang.labelLastGrossSalary, formData.lastGrossSalary, 'quarter').outerHTML}
+                    ${createCell(lang.labelReasonsForLeaving, formData.reasonsForLeaving, 'quarter').outerHTML}
+                </div>
+            `;
+            imageSourceContent.appendChild(createImageSection(lang.sectionTitleWorkExperience, workExperienceContent));
+
+            // Reference Contact Details Section
+            let referenceContactContent = `
+                <div class="image-row">
+                    ${createCell(lang.labelRefName, formData.refName, 'half').outerHTML}
+                    ${createCell(lang.labelRefCompany, formData.refCompany, 'half').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelRefAddress, formData.refAddress, 'full').outerHTML}
+                </div>
+                <div class="image-row">
+                    ${createCell(lang.labelRefPost, formData.refPost, 'third').outerHTML}
+                    ${createCell(lang.labelRefTelephoneNumber, formData.refTelephoneNumber, 'third').outerHTML}
+                    ${createCell(lang.labelRefContactNo, formData.refContactNo, 'third').outerHTML}
+                </div>
+            `;
+            imageSourceContent.appendChild(createImageSection(lang.sectionTitleReference, referenceContactContent));
+
+            // Understanding of Language Section
+            let languageContent = `
+                <table class="language-table">
+                    <thead>
+                        <tr>
+                            <th>Language</th>
+                            <th>${lang.labelRead}</th>
+                            <th>${lang.labelWrite}</th>
+                            <th>${lang.labelSpeak}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${lang.labelLanguageEnglish}</td>
+                            <td>${formData.languageEnglishRead}</td>
+                            <td>${formData.languageEnglishWrite}</td>
+                            <td>${formData.languageEnglishSpeak}</td>
+                        </tr>
+                        <tr>
+                            <td>${lang.labelLanguageNepali}</td>
+                            <td>${formData.languageNepaliRead}</td>
+                            <td>${formData.languageNepaliWrite}</td>
+                            <td>${formData.languageNepaliSpeak}</td>
+                        </tr>
+                        <tr>
+                            <td>${lang.labelLanguageHindi}</td>
+                            <td>${formData.languageHindiRead}</td>
+                            <td>${formData.languageHindiWrite}</td>
+                            <td>${formData.languageHindiSpeak}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+            imageSourceContent.appendChild(createImageSection(lang.sectionTitleLanguage, languageContent));
+
+            // Add the PHOTO box to the image source
+            const photoBox = document.createElement('div');
+            photoBox.className = 'photo-box';
+            photoBox.textContent = 'PHOTO';
+            // Insert it at a specific logical position, e.g., after HR details
+            imageSourceDiv.insertBefore(photoBox, imageSourceContent.firstChild);
 
 
             // Temporarily make the imageSourceDiv visible off-screen for html2canvas to render correctly
@@ -892,7 +1287,7 @@
 
                 // Set the download link
                 downloadImageButton.href = imageDataUrl;
-                downloadImageButton.download = `anjali_group_form_${Date.now()}.png`; // Unique filename
+                downloadImageButton.download = `personal_details_form_${Date.now()}.png`; // Unique filename
 
             } catch (error) {
                 console.error('Error generating image:', error);
@@ -909,6 +1304,10 @@
             } finally {
                 // Hide the imageSourceDiv again after rendering
                 imageSourceDiv.style.display = 'none';
+                // Remove the photo box after rendering to clean up
+                if (photoBox.parentNode) {
+                    photoBox.parentNode.removeChild(photoBox);
+                }
             }
         });
     </script>
